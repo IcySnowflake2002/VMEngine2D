@@ -2,6 +2,8 @@
 #include <iostream>
 #include "sdl2/SDL.h"
 
+class Texture;
+
 class Game {
 public:
 
@@ -44,4 +46,20 @@ private:
 
 	//Store the app window
 	SDL_Window* SdlWindow;
+
+	//store the renderer to render graphics
+	SDL_Renderer* SdlRenderer;
+
+	//Store a texture object
+	Texture* Texture1;
+	Texture* Texture2;
+	Texture* Texture3;
+	Texture* Texture4;
+	Texture* Texture5;
+	Texture* Texture6;
+	Texture* Texture7;
+	Texture* Texture8;
+	Texture* Texture9;
+	Texture* Texture10;
+
 };
