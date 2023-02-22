@@ -9,7 +9,7 @@ Animation::Animation(SDL_Renderer* Renderer, const char* SpriteSheetPath, STAnim
 	//initialise class variables
 	SpriteSheet = nullptr;
 	this->AnimationData = STAnimationData();
-	CurrentFrame = 0;
+	CurrentFrame = AnimationData.StartFrame;
 	AnimationTimer = 0.0;
 
 	//create the texture
@@ -34,7 +34,7 @@ Animation::~Animation()
 
 void Animation::UpdateAnimationTimer()
 {
-	//Add time to the animation tiemr each frame
+	//Add time to the animation timer each frame
 	AnimationTimer += Game::GetGameInstance().GetDeltaTime();
 
 	//if FPS is 0 then there is no need to change the frame

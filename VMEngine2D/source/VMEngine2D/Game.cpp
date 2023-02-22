@@ -114,10 +114,6 @@ void Game::Update()
 	DeltaTime = DeltaMil / 1000.0;
 	//set the last tick time as the current time for the next frame
 	LastTickTime = CurrentTickTime;
-
-	static double TimePassed = 0.0;
-	TimePassed += DeltaTime;
-	//cout << TimePassed << endl;
 }
 
 void Game::Draw()
