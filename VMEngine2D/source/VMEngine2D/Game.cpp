@@ -117,7 +117,7 @@ void Game::Update()
 
 	static double TimePassed = 0.0;
 	TimePassed += DeltaTime;
-	cout << TimePassed << endl;
+	//cout << TimePassed << endl;
 }
 
 void Game::Draw()
@@ -128,7 +128,7 @@ void Game::Draw()
 	SDL_RenderClear(SdlRenderer);
 
 	//do anything that needs to be drawn to the screen here
-	Animation1->Draw();
+	Animation1->Draw(SdlRenderer, Vector2(100.0f, 100.0f), 2.0f, false);
 
 	//Show the new frame
 	SDL_RenderPresent(SdlRenderer);
@@ -168,13 +168,14 @@ void Game::BeginPlay()
 	cout << "Load Game Assets..." << endl;
 
 	STAnimationData AnimData = STAnimationData();
-	AnimData.EndFrame = 10;
 	AnimData.FPS = 24;
-	AnimData.MaxFrames = 10;
+	AnimData.MaxFrames = 12;
+	//the frames should be auumed as index by array values
 	AnimData.StartFrame = 0;
+	AnimData.EndFrame = 11;
 
 	Animation1 = new Animation(SdlRenderer,
-		"Content/shipshields/Main Ship - Shields - Front and Side Shield",
+		"Content/shipshields/Main Ship - Shields - Round Shield.png",
 		AnimData);
 }
 

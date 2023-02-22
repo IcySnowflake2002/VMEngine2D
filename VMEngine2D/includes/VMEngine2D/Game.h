@@ -63,5 +63,6 @@ private:
 	//hold the time between each frame
 	double DeltaTime;
 
+	//Reference to Animation Class
 	Animation* Animation1;
 };

@@ -38,7 +38,7 @@ void Animation::UpdateAnimationTimer()
 	AnimationTimer += Game::GetGameInstance().GetDeltaTime();
 
 	//if FPS is 0 then there is no need to change the frame
-	if (AnimationData.FPS != 0.0) {
+	if (AnimationData.FPS == 0) {
 		return;
 	}
 
@@ -47,7 +47,7 @@ void Animation::UpdateAnimationTimer()
 
 	//if the timer has reach the amount of time to switch frames
 	//run the frame update function
-	if (AnimationTimer > TimePerFrame) {
+	if (AnimationTimer >= TimePerFrame) {
 		AnimationTimer = 0.0;
 		OnFrameUpdate();
 
@@ -77,6 +77,6 @@ void Animation::Draw(SDL_Renderer* Renderer, Vector2 Position, float Scale, bool
 	UpdateAnimationTimer();
 
 	//draw the texture with clip rect and updated frame pos
-
+	SpriteSheet->Draw(Renderer, Position, &FramePos, Scale, bFlip);
 
 }
