@@ -39,6 +39,10 @@ private:
 	//Clean up any memory we need to clean
 	void CloseGame();
 
+	//load game logic before the game update runs
+	void BeginPlay();
+
+
 private:
 	//handle the game loop condition
 	//on true end game
@@ -49,17 +53,5 @@ private:
 
 	//store the renderer to render graphics
 	SDL_Renderer* SdlRenderer;
-
-	//Store a texture object
-	Texture* Texture1;
-	Texture* Texture2;
-	Texture* Texture3;
-	Texture* Texture4;
-	Texture* Texture5;
-	Texture* Texture6;
-	Texture* Texture7;
-	Texture* Texture8;
-	Texture* Texture9;
-	Texture* Texture10;
 
 };
