@@ -67,8 +67,14 @@ void Texture::Draw(SDL_Renderer* SdlRenderer, Vector2 Position, SDL_Rect* Source
 
 	//clip the rectangle if the source rect is updated
 	if (SourceRect != nullptr) {
+		//Scale the source rect if set
 		ClipRect.w = SourceRect->w * Scale;
 		ClipRect.h = SourceRect->h * Scale;
+	}
+	else {
+		//This will scale if there is no source rect
+		ClipRect.w *= Scale;
+		ClipRect.h *= Scale;
 	}
 
 	//This will define whether or not to flip the image
