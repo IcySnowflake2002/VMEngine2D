@@ -1,5 +1,6 @@
 #include "VMEngine2D\Game.h"
 #include "VMEngine2D/Vector2.h"
+#include "VMEngine2D/Animation.h"
 using namespace std;
 
 Game& Game::GetGameInstance()
@@ -23,6 +24,9 @@ Game::Game()
 	cout << "Initialised Game Instance!" << endl;
 	bIsGameOver = false;
 	SdlWindow = nullptr;
+	Animation1 = nullptr;
+	DeltaTime = 0.0;
+	SdlRenderer = nullptr;
 }
 
 Game::~Game()
@@ -98,7 +102,22 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
+	//static variables in methods will only initialise once
+	// update with the previous fraames time passed
+	static double LastTickTime = 0.0;
+	// get the current time milliseconds that has passed since the game has started
+	// GetTicks64 returns a Uint64 which means we need to convert it into the double
+	double CurrentTickTime = static_cast<double>(SDL_GetTicks64());
+	//get the difference between last tick time and current tick time
+	double DeltaMil = CurrentTickTime - LastTickTime;
+	//set delta time but convert it to seconds
+	DeltaTime = DeltaMil / 1000.0;
+	//set the last tick time as the current time for the next frame
+	LastTickTime = CurrentTickTime;
 
+	static double TimePassed = 0.0;
+	TimePassed += DeltaTime;
+	cout << TimePassed << endl;
 }
 
 void Game::Draw()
@@ -108,7 +127,8 @@ void Game::Draw()
 	//clear the previous frame
 	SDL_RenderClear(SdlRenderer);
 
-
+	//do anything that needs to be drawn to the screen here
+	Animation1->Draw();
 
 	//Show the new frame
 	SDL_RenderPresent(SdlRenderer);
@@ -126,7 +146,6 @@ void Game::Run()
 		ProcessInput();
 		Update();
 		Draw();
-		SDL_Delay(5);
 	}
 	
 	CloseGame();
@@ -134,6 +153,10 @@ void Game::Run()
 
 void Game::CloseGame()
 {
+	//handle game asset deletion
+	cout << "Deleting Game Assets..." << endl;
+	delete Animation1;
+
 	//Handle SDL unintialisation
 	cout << "Cleaning up SDL" << endl;
 	SDL_DestroyWindow(SdlWindow);
@@ -142,6 +165,16 @@ void Game::CloseGame()
 
 void Game::BeginPlay()
 {
-	cout << "Begin the game" << endl;
+	cout << "Load Game Assets..." << endl;
+
+	STAnimationData AnimData = STAnimationData();
+	AnimData.EndFrame = 10;
+	AnimData.FPS = 24;
+	AnimData.MaxFrames = 10;
+	AnimData.StartFrame = 0;
+
+	Animation1 = new Animation(SdlRenderer,
+		"Content/shipshields/Main Ship - Shields - Front and Side Shield",
+		AnimData);
 }
 

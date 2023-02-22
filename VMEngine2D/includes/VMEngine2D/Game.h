@@ -2,7 +2,7 @@
 #include <iostream>
 #include "sdl2/SDL.h"
 
-class Texture;
+class Animation;
 
 class Game {
 public:
@@ -17,6 +17,12 @@ public:
 
 	//Initialise the Game before the loop runs
 	void Start(const char* WTitle, bool bFullScreen, int WWidth, int WHeight);
+
+	//For precise timing
+	double GetDeltaTime() const { return DeltaTime;  }
+
+	//for average timing
+	float GetFDeltaTime() const { return static_cast<float>(DeltaTime); }
 
 private: 
 	//Constructor
@@ -54,4 +60,8 @@ private:
 	//store the renderer to render graphics
 	SDL_Renderer* SdlRenderer;
 
+	//hold the time between each frame
+	double DeltaTime;
+
+	Animation* Animation1;
 };

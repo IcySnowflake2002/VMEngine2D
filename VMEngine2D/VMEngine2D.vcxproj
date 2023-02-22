@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -147,11 +147,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\Source.cpp" />
+    <ClCompile Include="source\VMEngine2D\Animation.cpp" />
+    <ClCompile Include="source\VMEngine2D\AnimStateMachine.cpp" />
     <ClCompile Include="source\VMEngine2D\Game.cpp" />
     <ClCompile Include="source\VMEngine2D\Texture.cpp" />
     <ClCompile Include="source\VMEngine2D\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\VMEngine2D\Animation.h" />
+    <ClInclude Include="includes\VMEngine2D\AnimStateMachine.h" />
     <ClInclude Include="includes\VMEngine2D\Game.h" />
     <ClInclude Include="includes\VMEngine2D\Texture.h" />
     <ClInclude Include="includes\VMEngine2D\Vector2.h" />
