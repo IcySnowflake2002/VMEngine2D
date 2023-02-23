@@ -8,7 +8,7 @@ Animation::Animation(SDL_Renderer* Renderer, const char* SpriteSheetPath, STAnim
 {
 	//initialise class variables
 	SpriteSheet = nullptr;
-	this->AnimationData = STAnimationData();
+	this->AnimationData = AnimationData;
 	CurrentFrame = AnimationData.StartFrame;
 	AnimationTimer = 0.0;
 

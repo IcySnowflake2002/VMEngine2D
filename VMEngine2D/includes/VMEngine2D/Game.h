@@ -65,4 +65,12 @@ private:
 
 	//Reference to Animation Class
 	Animation* Animation1;
+	Animation* Animation2;
+	Animation* Animation3;
+	Animation* Animation4;
+	Animation* Animation5;
+
+	//Reference to Overlay Images
+	Animation* EngineImage;
+	Animation* ShipImage;
 };

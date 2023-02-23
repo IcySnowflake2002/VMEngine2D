@@ -1,4 +1,7 @@
-﻿  Game.cpp
+﻿  Source.cpp
+  Animation.cpp
+  Game.cpp
+  Generating Code...
   VMEngine2D.vcxproj -> C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\x64\Debug\VMEngine2D.exe
   C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2.dll
   C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_image.dll
