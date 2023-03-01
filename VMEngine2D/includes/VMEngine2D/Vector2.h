@@ -3,6 +3,7 @@
 class Vector2 {
 public:
 	//functions
+	Vector2() { x = y = 0.0f; }
 	Vector2(float x, float y);
 	~Vector2() {}
 
