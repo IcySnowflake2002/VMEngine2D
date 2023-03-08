@@ -2,7 +2,8 @@
 #include "VMEngine2D/Vector2.h"
 #include "VMEngine2D/Animation.h"
 #include "VMEngine2D/Input.h"
-#include "VMEngine2D/GameObjects/Character.h"
+#include "VMEngine2D/GameObjects/Characters/PlayerChar.h"
+#include "VMEngine2D/GameObjects/Characters/Enemy.h"
 #include "VMEngine2D/GameObject.h"
 #include "VMEngine2D/Animation.h"
 
@@ -116,6 +117,12 @@ void Game::Update()
 	DeltaTime = DeltaMil / 1000.0;
 	//set the last tick time as the current time for the next frame
 	LastTickTime = CurrentTickTime;
+
+	// run the game objects logic
+	for (GameObject* SingleGameObject : AllGameObjects) {
+		SingleGameObject->Update();
+	}
+
 }
 
 void Game::Draw()
@@ -172,39 +179,11 @@ void Game::BeginPlay()
 {
 	cout << "Load Game Assets..." << endl;
 
-	Character* MyCharacter = new Character(Vector2(100.0f, 100.0f));
-
-	STAnimationData AnimData = STAnimationData();
-	AnimData.FPS = 24;
-	AnimData.MaxFrames = 12;
-	//the frames should be auumed as index by array values
-	AnimData.StartFrame = 0;
-	AnimData.EndFrame = 11;
-
-	MyCharacter->AddAnimation(SdlRenderer,
-		"Content/shipshields/Main Ship - Shields - Round Shield.png",
-		AnimData);
-
-	AnimData.FPS = 24;
-	AnimData.MaxFrames = 10;
-	//the frames should be auumed as index by array values
-	AnimData.StartFrame = 0;
-	AnimData.EndFrame = 9;
-
-	MyCharacter->AddAnimation(SdlRenderer,
-		"Content/shipshields/Main Ship - Shields - Invincibility Shield.png",
-		AnimData);
-
-	AnimData.FPS = 24;
-	AnimData.MaxFrames = 6;
-	AnimData.StartFrame = 0;
-	AnimData.EndFrame = 5;
-
-	MyCharacter->AddAnimation(SdlRenderer,
-		"Content/shipshields/Main Ship - Shields - Front and Side Shield.png",
-		AnimData);
+	PlayerChar* MyCharacter = new PlayerChar(Vector2(100.0f, 100.0f), SdlRenderer);
+	Enemy* Bomber = new Enemy(Vector2(300.0f, 100.0f), SdlRenderer);
 
 	//Add the character into the Game Object stack
 	AllGameObjects.push_back(MyCharacter);
+	AllGameObjects.push_back(Bomber);
 }
 

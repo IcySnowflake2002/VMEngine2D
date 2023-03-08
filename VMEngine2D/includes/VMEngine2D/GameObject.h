@@ -22,4 +22,7 @@ public:
 protected:
 	//Screen Position of the game object
 	Vector2 Position;
+
+	//Scale of the object
+	float Scale;
 };

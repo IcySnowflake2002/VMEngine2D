@@ -22,25 +22,6 @@ Character::~Character()
 	std::cout << "Character Destroyed." << std::endl;
 }
 
-void Character::ProcessInput(Input* PlayerInput)
-{
-	// set the AnimIndex to play the first animation by default
-	AnimIndex = 0;
-
-	//If we're holding down W, then play the second animation instead
-	if (PlayerInput->IsKeyDown(SDL_SCANCODE_W)) {
-		AnimIndex = 1;
-	}
-	//If we're holding down E, then play the third animation instead
-	if (PlayerInput->IsKeyDown(SDL_SCANCODE_E)) {
-		AnimIndex = 2;
-	}
-}
-
-void Character::Update()
-{
-}
-
 void Character::Draw(SDL_Renderer* Renderer)
 {
 	// draw the animations for the character

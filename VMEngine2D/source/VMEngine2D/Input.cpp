@@ -32,7 +32,7 @@ void Input::ProcessInput()
 			KeyboardState = SDL_GetKeyboardState(NULL);
 			break;
 		case SDL_QUIT:
-			// Go into the game instance and run the closeApp function.
+			//Go into the game instance and run the closeApp function.
 			Game::GetGameInstance().CloseApp();
 			break;
 		default:

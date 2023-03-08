@@ -55,7 +55,8 @@ bool Texture::LoadImageFromFile(const char* Path, SDL_Renderer* SdlRenderer)
 	return SdlTexture != nullptr;
 }
 
-void Texture::Draw(SDL_Renderer* SdlRenderer, Vector2 Position, SDL_Rect* SourceRect, float Scale, bool bFlip)
+void Texture::Draw(SDL_Renderer* SdlRenderer, Vector2 Position, 
+	float Rotation, SDL_Rect* SourceRect, float Scale, bool bFlip)
 {
 	//set the rendering space and render the dimension of the texture
 	// i.e. clip the texture

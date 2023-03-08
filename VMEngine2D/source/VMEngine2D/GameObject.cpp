@@ -3,6 +3,8 @@
 
 GameObject::GameObject()
 {
+	Scale = 0.1f;
+
 	std::cout << "GameObject created." << std::endl;
 }
 
