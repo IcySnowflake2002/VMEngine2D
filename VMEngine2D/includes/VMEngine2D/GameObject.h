@@ -25,4 +25,7 @@ protected:
 
 	//Scale of the object
 	float Scale;
+
+	//Rotation of the whole object
+	double Rotation;
 };

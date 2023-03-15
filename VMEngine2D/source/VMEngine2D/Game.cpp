@@ -1,4 +1,4 @@
-#include "VMEngine2D\Game.h"
+#include "VMEngine2D/Game.h"
 #include "VMEngine2D/Vector2.h"
 #include "VMEngine2D/Animation.h"
 #include "VMEngine2D/Input.h"
@@ -183,7 +183,7 @@ void Game::BeginPlay()
 	Enemy* Bomber = new Enemy(Vector2(300.0f, 100.0f), SdlRenderer);
 
 	//Add the character into the Game Object stack
-	AllGameObjects.push_back(MyCharacter);
 	AllGameObjects.push_back(Bomber);
+	AllGameObjects.push_back(MyCharacter);
 }
 

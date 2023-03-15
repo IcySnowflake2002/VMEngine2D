@@ -4,6 +4,7 @@
 GameObject::GameObject()
 {
 	Scale = 0.1f;
+	Rotation = 0.0;
 
 	std::cout << "GameObject created." << std::endl;
 }

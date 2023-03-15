@@ -85,7 +85,7 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 void PlayerChar::Update()
 {
 	//set the direction based on input and move speed
-	Vector2 Direction = InputDir * MaxMoveSpeed;
+	Vector2 Direction = InputDir.Normalised() * MaxMoveSpeed;
 	//Move the player based on time
 	Position += Direction * Game::GetGameInstance().GetFDeltaTime();
 }
@@ -94,10 +94,10 @@ void PlayerChar::Draw(SDL_Renderer* Renderer)
 {
 
 	//Draw the engine to the screen
-	CharacterAnimations->Draw(Renderer, PlayerAnims::ENG_SC, Position, Scale, bFlipped);
+	CharacterAnimations->Draw(Renderer, PlayerAnims::ENG_SC, Position, Rotation, Scale, bFlipped);
 
 	//Draw and play the relevant booster animation
-	CharacterAnimations->Draw(Renderer, BoostersIndex, Position, Scale, bFlipped);
+	CharacterAnimations->Draw(Renderer, BoostersIndex, Position, Rotation, Scale, bFlipped);
 
 	// Make sure the character method still runs
 	Character::Draw(Renderer);

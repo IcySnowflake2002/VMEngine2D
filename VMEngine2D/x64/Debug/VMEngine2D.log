@@ -1,14 +1,9 @@
-﻿  AnimStateMachine.cpp
-  Animation.cpp
-D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\Animation.cpp(80,63): error C2660: 'Texture::Draw': function does not take 5 arguments
-D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\includes\VMEngine2D\Texture.h(17,7): message : see declaration of 'Texture::Draw'
-  Game.cpp
-  Character.cpp
+﻿  GameObject.cpp
   Enemy.cpp
-  PlayerChar.cpp
-  Texture.cpp
-D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\Texture.cpp(72,30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\Texture.cpp(73,30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\Texture.cpp(77,17): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
-D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\Texture.cpp(78,17): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
   Generating Code...
+  VMEngine2D.vcxproj -> D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\x64\Debug\VMEngine2D.exe
+  D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2.dll
+  D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_image.dll
+  D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_mixer.dll
+  D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_ttf.dll
+          4 file(s) copied.

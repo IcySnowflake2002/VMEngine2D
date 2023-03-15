@@ -17,7 +17,7 @@ public:
 	void Draw(
 		SDL_Renderer* SdlRenderer,	// @param 1 - Renderer
 		Vector2 Position,			// @param 2 - The position on the screen
-		float Rotation,				// @param 3 - The rotation of the texture
+		double Rotation,			// @param 3 - The rotation of the texture
 		SDL_Rect* SourceRect,		// @param 4 - The clip amount of the texture
 		float Scale,				// @param 5 - How much to scale the image
 		bool bFlip					// @param 6 - If it should flip horizontally

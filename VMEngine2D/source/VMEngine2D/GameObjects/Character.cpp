@@ -25,7 +25,7 @@ Character::~Character()
 void Character::Draw(SDL_Renderer* Renderer)
 {
 	// draw the animations for the character
-	CharacterAnimations->Draw(Renderer, AnimIndex, Position, Scale, bFlipped);
+	CharacterAnimations->Draw(Renderer, AnimIndex, Position, Rotation, Scale, bFlipped);
 }
 
 void Character::AddAnimation(SDL_Renderer* Renderer, const char* SpriteSheetPath, STAnimationData AnimationData)

@@ -19,5 +19,5 @@ public:
 private:
 	Vector2 Direction;
 
-	unsigned int BoostersIndex;
+	//unsigned int BoostersIndex;
 };
