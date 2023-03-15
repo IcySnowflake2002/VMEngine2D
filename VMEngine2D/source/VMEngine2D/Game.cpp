@@ -123,6 +123,36 @@ void Game::Update()
 		SingleGameObject->Update();
 	}
 
+	//set a static timer to count up based on DeltaTime
+	// static variables don't reininitalise
+	static double SpawnTimer = 0.0;
+	SpawnTimer += DeltaTime;
+
+	//after 5 seconds spawn enemy then reset timer
+	if (SpawnTimer > 5.0) {
+		//set up variables to recieve the app window width and height
+		int WinWidth, WinHeight = 0;
+
+		//Use SDL function to set the dimensions
+		SDL_GetWindowSize(SdlWindow, &WinWidth, &WinHeight);
+
+		//Increase Window Width by 1
+		WinWidth += 1;
+
+		//get a random number between 0 and the window width
+		//rand() gets random number between 0 and number afteer %
+		int SpawnEnemyX = rand() % WinWidth;
+
+		// spawn an enemy based on a random screen x location
+		Enemy* NewEnemy = new Enemy(Vector2(SpawnEnemyX, -128.0f), SdlRenderer);
+
+		//add the enemy to the game object stack
+		AllGameObjects.push_back(NewEnemy);
+
+		//Reset Timer to 0 and start again
+		SpawnTimer = 0.0f;
+	}
+
 }
 
 void Game::Draw()
@@ -181,9 +211,11 @@ void Game::BeginPlay()
 
 	PlayerChar* MyCharacter = new PlayerChar(Vector2(100.0f, 100.0f), SdlRenderer);
 	Enemy* Bomber = new Enemy(Vector2(300.0f, 100.0f), SdlRenderer);
+	Enemy* Bomber2 = new Enemy(Vector2(500.0f, 250.0f), SdlRenderer);
 
 	//Add the character into the Game Object stack
 	AllGameObjects.push_back(Bomber);
+	AllGameObjects.push_back(Bomber2);
 	AllGameObjects.push_back(MyCharacter);
 }
 

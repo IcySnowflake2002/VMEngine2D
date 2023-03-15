@@ -3,12 +3,16 @@
 
 class AnimStateMachine;
 struct STAnimationData;
+class PhysicsComponent;
 
 class Character :
 	public GameObject {
 public:
 	Character(Vector2 StartPosition);
 	~Character();
+
+	//override the parent update()
+	virtual void Update() override;
 
 	// virtual allows for derived classes to override
 	// override changes the definition of the parent method to this one.
@@ -21,12 +25,15 @@ protected:
 	//Store all animations
 	AnimStateMachine* CharacterAnimations;
 
+	// direction to move in
+	Vector2 MovementDir;
+
 	//Animation index used by the anim state machine
 	unsigned int AnimIndex;
 
 	//flip the animation
 	bool bFlipped;
 
-	//Maximum Velocity/speed
-	float MaxMoveSpeed;
+	//store a reference to the physics component
+	PhysicsComponent* Physics;
 };

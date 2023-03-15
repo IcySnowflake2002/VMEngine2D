@@ -17,7 +17,6 @@ public:
 	virtual void Draw(SDL_Renderer* Renderer) override;
 
 private:
-	Vector2 Direction;
 
 	//unsigned int BoostersIndex;
 };

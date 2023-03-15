@@ -1,4 +1,5 @@
-﻿  GameObject.cpp
+﻿  Game.cpp
+D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\Game.cpp(147,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Enemy.cpp
   Generating Code...
   VMEngine2D.vcxproj -> D:\Users\Tempstudent\Documents\GitHub\VMEngine2D\x64\Debug\VMEngine2D.exe

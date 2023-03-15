@@ -1,5 +1,6 @@
 #include "VMEngine2D/GameObjects/Characters/PlayerChar.h"
 #include "VMEngine2D/Input.h"
+#include "VMEngine2D/GameObjects/Components/Physics.h"
 #include "VMEngine2D/AnimStateMachine.h"
 #include "VMEngine2D/Game.h"
 
@@ -52,42 +53,50 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 	// set the AnimIndex to play the first animation by default
 	BoostersIndex = PlayerAnims::BOO_IDLE;
 	//set the player to idle movement by default
-	InputDir = Vector2::Zero(); //Essentially is like saying Vector2(0.0f, 0.0f)
+	MovementDir = Vector2::Zero(); //Essentially is like saying Vector2(0.0f, 0.0f)
+	//default idle rotation at up
+	Rotation = 0.0;
 
 	// update the input direction based on the inputs being pressed
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_UP)) {
 		//set input y to up
-		InputDir.y = -2.0f;
+		MovementDir.y = -2.0f;
+		
 	}
 
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_DOWN)) {
 		//set input y to down
-		InputDir.y = 2.0f;
+		MovementDir.y = 2.0f;
+		//make player look down
+		Rotation = -180.0;
 	}
 
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_LEFT)) {
 		//set input x to left
-		InputDir.x = -2.0f;
+		MovementDir.x = -2.0f;
+		// make player look left
+		Rotation = -90.0;
 	}
 
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_RIGHT)) {
 		//set input x to right
-		InputDir.x = 2.0f;
+		MovementDir.x = 2.0f;
+		// make player look right
+		Rotation = 90.0;
 	}
 
 	//if we are moving
-	if (InputDir.Length() > 0.0f) {
+	if (MovementDir.Length() > 0.0f) {
 		BoostersIndex = PlayerAnims::BOO_POWER;
 	}
-
 }
 
 void PlayerChar::Update()
 {
-	//set the direction based on input and move speed
-	Vector2 Direction = InputDir.Normalised() * MaxMoveSpeed;
-	//Move the player based on time
-	Position += Direction * Game::GetGameInstance().GetFDeltaTime();
+	//Run the parent class update first
+	Character::Update();
+	
+	Physics->AddForce(MovementDir, 200.0f);
 }
 
 void PlayerChar::Draw(SDL_Renderer* Renderer)
