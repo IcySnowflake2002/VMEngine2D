@@ -155,6 +155,7 @@
     <ClCompile Include="source\VMEngine2D\GameObjects\Characters\Enemy.cpp" />
     <ClCompile Include="source\VMEngine2D\GameObjects\Characters\PlayerChar.cpp" />
     <ClCompile Include="source\VMEngine2D\GameObjects\Components.cpp" />
+    <ClCompile Include="source\VMEngine2D\GameObjects\Components\Collision.cpp" />
     <ClCompile Include="source\VMEngine2D\GameObjects\Components\Physics.cpp" />
     <ClCompile Include="source\VMEngine2D\Input.cpp" />
     <ClCompile Include="source\VMEngine2D\Texture.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="includes\VMEngine2D\GameObjects\Characters\Enemy.h" />
     <ClInclude Include="includes\VMEngine2D\GameObjects\Characters\PlayerChar.h" />
     <ClInclude Include="includes\VMEngine2D\GameObjects\Components.h" />
+    <ClInclude Include="includes\VMEngine2D\GameObjects\Components\Collision.h" />
     <ClInclude Include="includes\VMEngine2D\GameObjects\Components\Physics.h" />
     <ClInclude Include="includes\VMEngine2D\Input.h" />
     <ClInclude Include="includes\VMEngine2D\Texture.h" />

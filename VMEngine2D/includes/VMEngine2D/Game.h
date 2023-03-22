@@ -5,6 +5,12 @@
 
 class GameObject;
 class Input;
+class Collision;
+
+//at compile time the compiler will turn the type definition into the proper one
+// this is purely for readability
+typedef std::vector<Collision*>::iterator ColIterator;
+typedef std::vector<GameObject*>::iterator GOIterator;
 
 class Game {
 public:
@@ -28,6 +34,15 @@ public:
 
 	//Sets bGameOver to true which closes the app
 	void CloseApp() { bIsGameOver = true; }
+
+	//Add a collision component to the components stack
+	void AddCollisionToGame(Collision* Collider);
+
+	//remove a collision from the component stack
+	void RemoveCollisionFromGame(Collision* Collider);
+
+	//Return all the colliders in the game
+	std::vector<Collision*> GetGameColliders() const { return AllColliders; };
 
 private: 
 	//Constructor
@@ -53,6 +68,8 @@ private:
 	//load game logic before the game update runs
 	void BeginPlay();
 
+	//Sort out Garbage
+	void HandleGarbage();
 
 private:
 	//handle the game loop condition
@@ -73,4 +90,7 @@ private:
 
 	//GameObject stack
 	std::vector<GameObject*> AllGameObjects;
+
+	//Collision Stack
+	std::vector<Collision*> AllColliders;
 };

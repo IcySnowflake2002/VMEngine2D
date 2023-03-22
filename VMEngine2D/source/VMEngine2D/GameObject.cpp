@@ -6,6 +6,8 @@ GameObject::GameObject()
 {
 	Scale = 0.1f;
 	Rotation = 0.0;
+	Tag = "";
+	bShouldDestroy = false;
 
 	std::cout << "GameObject created." << std::endl;
 }

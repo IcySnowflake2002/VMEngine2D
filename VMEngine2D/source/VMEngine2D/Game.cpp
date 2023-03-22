@@ -25,6 +25,34 @@ void Game::DestroyGameInstance()
 	delete GameInstance;
 }
 
+void Game::AddCollisionToGame(Collision* Collider)
+{
+	//Add a collision into the AllColliders stack
+	AllColliders.push_back(Collider);
+
+	std::cout << "Added Collision into the game." << std::endl;
+}
+
+void Game::RemoveCollisionFromGame(Collision* Collider)
+{
+	//the find function finds an object or data using the object in a vector stack
+	// @param 1 - look from the start of the array
+	// @param 2 - to the end of the array
+	// @param 3 - the object that we are searching for
+	ColIterator ColToRemove = std::find(AllColliders.begin(), AllColliders.end(), Collider);
+
+	// the find function will set the iterator to AllColliders.end() if it doesn't find anything
+	if (ColToRemove == AllColliders.end()) {
+		// didn't find a collision
+		return; // return will kill the rest of the function if it's run
+	}
+
+	//remove the collider if find function found the collider
+	AllColliders.erase(ColToRemove);
+	std::cout << "Collision successfully removed from the game." << std::endl;
+}
+
+
 Game::Game()
 {
 	cout << "Initialised Game Instance!" << endl;
@@ -187,6 +215,7 @@ void Game::Run()
 		ProcessInput();
 		Update();
 		Draw();
+		HandleGarbage();
 	}
 	
 	CloseGame();
@@ -217,5 +246,25 @@ void Game::BeginPlay()
 	AllGameObjects.push_back(Bomber);
 	AllGameObjects.push_back(Bomber2);
 	AllGameObjects.push_back(MyCharacter);
+}
+
+void Game::HandleGarbage()
+{
+	//loop through all of the gameobjects and assign the iterator each loop
+	for (GOIterator Object = AllGameObjects.begin(); Object != AllGameObjects.end();) {
+		//if the object is not marked for delete then skip to the next one
+		if (!(*Object)->ShouldDestroy()) {
+			Object++;
+			continue;
+		}
+		
+		//delete the gameobject
+		delete* Object;
+
+		//remove the object from the array and resize the array
+		Object = AllGameObjects.erase(Object);
+
+		std::cout << "Deleted game object." << std::endl;
+	}
 }
 

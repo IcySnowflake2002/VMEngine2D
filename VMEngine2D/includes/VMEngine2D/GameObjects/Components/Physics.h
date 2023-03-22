@@ -2,11 +2,11 @@
 #include "VMEngine2D/GameObjects/Components.h"
 #include "VMEngine2D/Vector2.h"
 
-class PhysicsComponent :
+class Physics :
 	public Components {
 public: 
 	//functions
-	PhysicsComponent(GameObject* OwnerToAttatch);
+	Physics(GameObject* OwnerToAttatch);
 
 	void Update() override;
 

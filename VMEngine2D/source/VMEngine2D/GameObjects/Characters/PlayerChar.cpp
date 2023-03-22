@@ -1,6 +1,7 @@
 #include "VMEngine2D/GameObjects/Characters/PlayerChar.h"
 #include "VMEngine2D/Input.h"
 #include "VMEngine2D/GameObjects/Components/Physics.h"
+#include "VMEngine2D/GameObjects/Components/Collision.h"
 #include "VMEngine2D/AnimStateMachine.h"
 #include "VMEngine2D/Game.h"
 
@@ -95,8 +96,23 @@ void PlayerChar::Update()
 {
 	//Run the parent class update first
 	Character::Update();
-	
-	Physics->AddForce(MovementDir, 200.0f);
+
+	CharPhysics->AddForce(MovementDir, 750.0f);
+
+	if (CharCollision->IsOverlappingTag("Enemy")) {
+		bOverlapDetected = true;
+
+		//getting all overlapped enemies and destroy them
+		for (Collision* Enemy : CharCollision->GetOverlappedByTag("Enemy")) {
+			if (!Enemy->GetOwner()->ShouldDestroy()) {
+				std::cout << "Kill the Enemy!" << std::endl;
+				Enemy->GetOwner()->DestroyGameObject();
+			}
+		}
+	}
+	else {
+		bOverlapDetected = false;
+	}
 }
 
 void PlayerChar::Draw(SDL_Renderer* Renderer)

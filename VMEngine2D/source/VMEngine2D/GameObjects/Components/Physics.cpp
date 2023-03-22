@@ -3,13 +3,13 @@
 #include "VMEngine2D/Game.h"
 #include <iostream>
 
-PhysicsComponent::PhysicsComponent(GameObject* OwnerToAttatch) : Components(OwnerToAttatch)
+Physics::Physics(GameObject* OwnerToAttatch) : Components(OwnerToAttatch)
 {
 	MaxVelocity = 150.0f;
 	Drag = 1.0f;
 }
 
-void PhysicsComponent::Update()
+void Physics::Update()
 {
 	//increase velocity by the current acceleration
 	Velocity += Acceleration * Game::GetGameInstance().GetFDeltaTime();
@@ -38,7 +38,7 @@ void PhysicsComponent::Update()
 	Acceleration = Vector2::Zero();
 }
 
-void PhysicsComponent::AddForce(Vector2 Direction, float Force)
+void Physics::AddForce(Vector2 Direction, float Force)
 {
 	//normalise the direction and multiply it by force
 	Acceleration = Direction.Normalised() * Force;

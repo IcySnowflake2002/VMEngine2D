@@ -9,7 +9,8 @@ Enemy::Enemy(Vector2 StartPosition, SDL_Renderer* Renderer)
 	Scale = 3.0f;
 	MovementDir = Vector2(0.0f, 1.0f);
 	Rotation = 180.0;
-	Physics->MaxVelocity = 300.0f;
+	CharPhysics->MaxVelocity = 300.0f;
+	Tag = "Enemy";
 
 	STAnimationData AnimData = STAnimationData();
 	AnimData.FPS = 0;
@@ -40,12 +41,8 @@ void Enemy::Update()
 	//Run the parent class update first
 	Character::Update();
 
-	Physics->AddForce(MovementDir, 300.0f);
+	CharPhysics->AddForce(MovementDir, 300.0f);
 
-	//Teleport the enemy back up if they reach the bottom of the screen
-	//if (Position.y > 540.0f) {
-	//	Position.y = -64.0f * Scale;
-	//}
 }
 
 void Enemy::Draw(SDL_Renderer* Renderer)

@@ -3,7 +3,8 @@
 
 class AnimStateMachine;
 struct STAnimationData;
-class PhysicsComponent;
+class Physics;
+class Collision;
 
 class Character :
 	public GameObject {
@@ -35,5 +36,14 @@ protected:
 	bool bFlipped;
 
 	//store a reference to the physics component
-	PhysicsComponent* Physics;
+	Physics* CharPhysics;
+
+	//store a reference to the collision component
+	Collision* CharCollision;
+
+	//register the overlap as detected and change to green
+	bool bOverlapDetected;
+
+	//show collision if true
+	bool bDebugCollision;
 };
