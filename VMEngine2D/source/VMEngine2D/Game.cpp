@@ -1,11 +1,8 @@
 #include "VMEngine2D/Game.h"
 #include "VMEngine2D/Vector2.h"
-#include "VMEngine2D/Animation.h"
 #include "VMEngine2D/Input.h"
-#include "VMEngine2D/GameObjects/Characters/PlayerChar.h"
-#include "VMEngine2D/GameObjects/Characters/Enemy.h"
 #include "VMEngine2D/GameObject.h"
-#include "VMEngine2D/Animation.h"
+#include "VMEngine2D/GameState.h"
 
 using namespace std;
 
@@ -27,29 +24,24 @@ void Game::DestroyGameInstance()
 
 void Game::AddCollisionToGame(Collision* Collider)
 {
-	//Add a collision into the AllColliders stack
-	AllColliders.push_back(Collider);
+	// the game will add the collider to the current game state
+	GameStates->GetCurrentState()->AddCollisionToGameState(Collider);
 
 	std::cout << "Added Collision into the game." << std::endl;
 }
 
 void Game::RemoveCollisionFromGame(Collision* Collider)
 {
-	//the find function finds an object or data using the object in a vector stack
-	// @param 1 - look from the start of the array
-	// @param 2 - to the end of the array
-	// @param 3 - the object that we are searching for
-	ColIterator ColToRemove = std::find(AllColliders.begin(), AllColliders.end(), Collider);
+	// the game will remove the collider from the current game state
+	GameStates->GetCurrentState()->RemoveCollisionFromGameState(Collider);
 
-	// the find function will set the iterator to AllColliders.end() if it doesn't find anything
-	if (ColToRemove == AllColliders.end()) {
-		// didn't find a collision
-		return; // return will kill the rest of the function if it's run
-	}
-
-	//remove the collider if find function found the collider
-	AllColliders.erase(ColToRemove);
 	std::cout << "Collision successfully removed from the game." << std::endl;
+}
+
+std::vector<Collision*> Game::GetGameColliders() const
+{
+	// return the collisions of the current state
+	return GameStates->GetCurrentState()->GetGameStateCollisions();
 }
 
 
@@ -61,6 +53,8 @@ Game::Game()
 	DeltaTime = 0.0;
 	SdlRenderer = nullptr;
 	PlayerInput = nullptr;
+
+	GameStates = nullptr;
 
 }
 
@@ -117,6 +111,9 @@ void Game::Start(const char* WTitle, bool bFullScreen, int WWidth, int WHeight)
 	//Create an object of the input class
 	PlayerInput = new Input();
 
+	//randomise the seed using the current calender time so we always have a different random seed
+	srand(time(NULL));
+
 	Run();
 }
 
@@ -125,10 +122,8 @@ void Game::ProcessInput()
 	//this must run before all other process input detection
 	PlayerInput->ProcessInput();
 
-	//process the input of each GameObject
-	for (GameObject* SingleGameObject : AllGameObjects) {
-		SingleGameObject->ProcessInput(PlayerInput);
-	}
+	// run the input of the current game state
+	GameStates->GetCurrentState()->ProcessInput(PlayerInput);
 }
 
 void Game::Update()
@@ -146,39 +141,34 @@ void Game::Update()
 	//set the last tick time as the current time for the next frame
 	LastTickTime = CurrentTickTime;
 
-	// run the game objects logic
-	for (GameObject* SingleGameObject : AllGameObjects) {
-		SingleGameObject->Update();
+	// run the update of the current state and pass in float delta time
+	GameStates->GetCurrentState()->Update(GetFDeltaTime());
+
+	// Creating (And Removing) Multiple Games
+	// store the state of the key
+	static bool bPressed = false;
+	// on pressed the first time create a new state
+	if (PlayerInput->IsKeyDown(SDL_SCANCODE_1) && !bPressed) {
+		GameState* NewGame = new GameState(SdlWindow, SdlRenderer);
+		GameStates->PushState(NewGame);
+		std::cout << "New State Created" << std::endl;
+		bPressed = true;
+	}
+	//if we release the key then set pressed to false
+	else if (!PlayerInput->IsKeyDown(SDL_SCANCODE_1)) {
+		bPressed = false;
 	}
 
-	//set a static timer to count up based on DeltaTime
-	// static variables don't reininitalise
-	static double SpawnTimer = 0.0;
-	SpawnTimer += DeltaTime;
-
-	//after 5 seconds spawn enemy then reset timer
-	if (SpawnTimer > 5.0) {
-		//set up variables to recieve the app window width and height
-		int WinWidth, WinHeight = 0;
-
-		//Use SDL function to set the dimensions
-		SDL_GetWindowSize(SdlWindow, &WinWidth, &WinHeight);
-
-		//Increase Window Width by 1
-		WinWidth += 1;
-
-		//get a random number between 0 and the window width
-		//rand() gets random number between 0 and number afteer %
-		int SpawnEnemyX = rand() % WinWidth;
-
-		// spawn an enemy based on a random screen x location
-		Enemy* NewEnemy = new Enemy(Vector2(SpawnEnemyX, -128.0f), SdlRenderer);
-
-		//add the enemy to the game object stack
-		AllGameObjects.push_back(NewEnemy);
-
-		//Reset Timer to 0 and start again
-		SpawnTimer = 0.0f;
+	//store the state of the key
+	static bool bPressed2 = false;
+	//on pressed go back to the previous game
+	if (PlayerInput->IsKeyDown(SDL_SCANCODE_2)) {
+		GameStates->PopState();
+		std::cout << "Returned to Previous Game" << std::endl;
+		bPressed2 = true;
+	}
+	else if (!PlayerInput->IsKeyDown(SDL_SCANCODE_2)) {
+		bPressed2 = false;
 	}
 
 }
@@ -191,14 +181,9 @@ void Game::Draw()
 	SDL_RenderClear(SdlRenderer);
 
 	//do anything that needs to be drawn to the screen here
-	
-	//cycle through all of the ganeobjects in the AllGameObjects array
-	//each loop reassign the SingleGameObject pointer with the next item in the array
-	for (GameObject* SingleGameObject : AllGameObjects) {
-		//each loop run the draw function for each gameobject
-		SingleGameObject->Draw(SdlRenderer);
-	}
-	
+	//run the current game state draw and pass in the renderer
+	GameStates->GetCurrentState()->Draw(SdlRenderer);
+
 	//Show the new frame
 	SDL_RenderPresent(SdlRenderer);
 }
@@ -225,6 +210,8 @@ void Game::CloseGame()
 {
 	//handle game asset deletion
 	cout << "Deleting Game Assets..." << endl;
+	delete GameStates;
+
 	// delete player input from memory
 	delete PlayerInput;
 
@@ -238,33 +225,14 @@ void Game::BeginPlay()
 {
 	cout << "Load Game Assets..." << endl;
 
-	PlayerChar* MyCharacter = new PlayerChar(Vector2(100.0f, 100.0f), SdlRenderer);
-	Enemy* Bomber = new Enemy(Vector2(300.0f, 100.0f), SdlRenderer);
-	Enemy* Bomber2 = new Enemy(Vector2(500.0f, 250.0f), SdlRenderer);
-
-	//Add the character into the Game Object stack
-	AllGameObjects.push_back(Bomber);
-	AllGameObjects.push_back(Bomber2);
-	AllGameObjects.push_back(MyCharacter);
+	//create a game state for the starting state
+	GameState* StartingState = new GameState(SdlWindow, SdlRenderer);
+	//create a game state machine and add the starting state
+	GameStates = new GameStateMachine(StartingState);
 }
 
 void Game::HandleGarbage()
 {
-	//loop through all of the gameobjects and assign the iterator each loop
-	for (GOIterator Object = AllGameObjects.begin(); Object != AllGameObjects.end();) {
-		//if the object is not marked for delete then skip to the next one
-		if (!(*Object)->ShouldDestroy()) {
-			Object++;
-			continue;
-		}
-		
-		//delete the gameobject
-		delete* Object;
-
-		//remove the object from the array and resize the array
-		Object = AllGameObjects.erase(Object);
-
-		std::cout << "Deleted game object." << std::endl;
-	}
+	GameStates->GetCurrentState()->HandleGarbage();
 }
 

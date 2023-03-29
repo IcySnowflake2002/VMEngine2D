@@ -61,27 +61,27 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 	// update the input direction based on the inputs being pressed
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_UP)) {
 		//set input y to up
-		MovementDir.y = -2.0f;
+		MovementDir.y = -5.0f;
 		
 	}
 
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_DOWN)) {
 		//set input y to down
-		MovementDir.y = 2.0f;
+		MovementDir.y = 5.0f;
 		//make player look down
 		Rotation = -180.0;
 	}
 
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_LEFT)) {
 		//set input x to left
-		MovementDir.x = -2.0f;
+		MovementDir.x = -5.0f;
 		// make player look left
 		Rotation = -90.0;
 	}
 
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_RIGHT)) {
 		//set input x to right
-		MovementDir.x = 2.0f;
+		MovementDir.x = 5.0f;
 		// make player look right
 		Rotation = 90.0;
 	}
@@ -97,7 +97,7 @@ void PlayerChar::Update()
 	//Run the parent class update first
 	Character::Update();
 
-	CharPhysics->AddForce(MovementDir, 750.0f);
+	CharPhysics->AddForce(MovementDir, 850.0f);
 
 	if (CharCollision->IsOverlappingTag("Enemy")) {
 		bOverlapDetected = true;

@@ -5,8 +5,6 @@
 Collision::Collision(GameObject* OwnerObject) : Components(OwnerObject)
 {
 	std::cout << "Deleted Game Object" << std::endl;
-	//add itself into the game collision array
-	Game::GetGameInstance().AddCollisionToGame(this);
 }
 
 Collision::~Collision()
@@ -27,6 +25,9 @@ Collision::~Collision()
 
 void Collision::Update()
 {
+	//run the parent class update
+	Components::Update();
+
 	//follow the position of the parent game object
 	Dimensions.Position = OwnerObject->Position;
 
@@ -51,7 +52,9 @@ void Collision::Update()
 		ColRect.h = Dimensions.Height;
 
 		//Check if the collider is in the overlapped collisions
-		ColIterator It = std::find(OverlappedCollisions.begin(), OverlappedCollisions.end(), OtherCol);
+		std::vector<Collision*>::iterator It = std::find(
+			OverlappedCollisions.begin(), OverlappedCollisions.end(), 
+			OtherCol);
 
 		//check if this collision is intersecting with the other collision
 		if (SDL_HasIntersectionF(&ColRect, &OtherRect)) {
@@ -116,5 +119,12 @@ void Collision::RemoveCollisionFromOverlapped(Collision* Collision)
 		//this sets the new size of the array
 		OverlappedCollisions.end()
 	);
+}
+
+void Collision::OnActivated()
+{
+	//add itself into the game collision array
+	Game::GetGameInstance().AddCollisionToGame(this);
+	std::cout << "Collision Activated" << std::endl;
 }
 

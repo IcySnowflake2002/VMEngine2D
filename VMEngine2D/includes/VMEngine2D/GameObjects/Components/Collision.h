@@ -29,6 +29,10 @@ public:
 	//remove a collider from the overlapped collisions
 	void RemoveCollisionFromOverlapped(Collision* Collision);
 
+protected:
+	
+	void OnActivated() override;
+
 public:
 	//dimensions and position for the collision
 	STColDimensions Dimensions;

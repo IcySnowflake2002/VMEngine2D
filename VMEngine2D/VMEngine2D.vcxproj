@@ -157,6 +157,7 @@
     <ClCompile Include="source\VMEngine2D\GameObjects\Components.cpp" />
     <ClCompile Include="source\VMEngine2D\GameObjects\Components\Collision.cpp" />
     <ClCompile Include="source\VMEngine2D\GameObjects\Components\Physics.cpp" />
+    <ClCompile Include="source\VMEngine2D\GameState.cpp" />
     <ClCompile Include="source\VMEngine2D\Input.cpp" />
     <ClCompile Include="source\VMEngine2D\Texture.cpp" />
     <ClCompile Include="source\VMEngine2D\Vector2.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="includes\VMEngine2D\GameObjects\Components.h" />
     <ClInclude Include="includes\VMEngine2D\GameObjects\Components\Collision.h" />
     <ClInclude Include="includes\VMEngine2D\GameObjects\Components\Physics.h" />
+    <ClInclude Include="includes\VMEngine2D\GameState.h" />
     <ClInclude Include="includes\VMEngine2D\Input.h" />
     <ClInclude Include="includes\VMEngine2D\Texture.h" />
     <ClInclude Include="includes\VMEngine2D\Vector2.h" />
