@@ -15,8 +15,4 @@ public:
 	virtual void Update() override;
 
 	virtual void Draw(SDL_Renderer* Renderer) override;
-
-private:
-
-	//unsigned int BoostersIndex;
 };

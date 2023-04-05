@@ -1,16 +1,18 @@
 #include "VMEngine2D/GameObjects/Components/Collision.h"
 #include "VMEngine2D/GameObject.h"
 #include "VMEngine2D/Game.h"
+#include "VMEngine2D/GameState.h"
 
 Collision::Collision(GameObject* OwnerObject) : Components(OwnerObject)
 {
-	std::cout << "Deleted Game Object" << std::endl;
+	//Assign the current game state to the collision component
+	AttatchedGameState = Game::GetGameInstance().GetGameStates()->GetCurrentState();
 }
 
 Collision::~Collision()
 {
 	//remove self from game when deleted
-	Game::GetGameInstance().RemoveCollisionFromGame(this);
+	AttatchedGameState->RemoveCollisionFromGameState(this);
 
 	//loop through all the collisions we are overlapping
 	for (Collision* OtherCol : OverlappedCollisions) {
@@ -124,7 +126,7 @@ void Collision::RemoveCollisionFromOverlapped(Collision* Collision)
 void Collision::OnActivated()
 {
 	//add itself into the game collision array
-	Game::GetGameInstance().AddCollisionToGame(this);
+	AttatchedGameState->AddCollisionToGameState(this);
 	std::cout << "Collision Activated" << std::endl;
 }
 

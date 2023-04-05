@@ -1,8 +1,15 @@
+//Required Headers
 #include "VMEngine2D/Game.h"
 #include "VMEngine2D/Vector2.h"
 #include "VMEngine2D/Input.h"
 #include "VMEngine2D/GameObject.h"
 #include "VMEngine2D/GameState.h"
+
+//Game States
+#include "VMEngine2D/GameStates/PlayState.h"
+
+//SDL2
+#include "sdl2/SDL_ttf.h"
 
 using namespace std;
 
@@ -22,22 +29,6 @@ void Game::DestroyGameInstance()
 	delete GameInstance;
 }
 
-void Game::AddCollisionToGame(Collision* Collider)
-{
-	// the game will add the collider to the current game state
-	GameStates->GetCurrentState()->AddCollisionToGameState(Collider);
-
-	std::cout << "Added Collision into the game." << std::endl;
-}
-
-void Game::RemoveCollisionFromGame(Collision* Collider)
-{
-	// the game will remove the collider from the current game state
-	GameStates->GetCurrentState()->RemoveCollisionFromGameState(Collider);
-
-	std::cout << "Collision successfully removed from the game." << std::endl;
-}
-
 std::vector<Collision*> Game::GetGameColliders() const
 {
 	// return the collisions of the current state
@@ -55,6 +46,7 @@ Game::Game()
 	PlayerInput = nullptr;
 
 	GameStates = nullptr;
+	GameScore = 0;
 
 }
 
@@ -92,8 +84,7 @@ void Game::Start(const char* WTitle, bool bFullScreen, int WWidth, int WHeight)
 	if (SdlWindow == nullptr) {
 		//Error log
 		cout << "SDL Window Creation failed: " << SDL_GetError() << endl;
-		//Unintialise SDL
-		SDL_Quit();
+		CloseGame();
 		return;
 	}
 
@@ -104,7 +95,15 @@ void Game::Start(const char* WTitle, bool bFullScreen, int WWidth, int WHeight)
 		//remove the window
 		SDL_DestroyWindow(SdlWindow);
 		//uninitalise SDL
-		SDL_Quit();
+		CloseGame();
+		return;
+	}
+
+	//intialise TTF and if it equals -1 then it failed; 0 means it succeeded
+	if (TTF_Init() < 0) {
+		std::cout << "SDL TTF failed to intialise: " << TTF_GetError() << endl;
+
+		CloseGame();
 		return;
 	}
 
@@ -144,33 +143,6 @@ void Game::Update()
 	// run the update of the current state and pass in float delta time
 	GameStates->GetCurrentState()->Update(GetFDeltaTime());
 
-	// Creating (And Removing) Multiple Games
-	// store the state of the key
-	static bool bPressed = false;
-	// on pressed the first time create a new state
-	if (PlayerInput->IsKeyDown(SDL_SCANCODE_1) && !bPressed) {
-		GameState* NewGame = new GameState(SdlWindow, SdlRenderer);
-		GameStates->PushState(NewGame);
-		std::cout << "New State Created" << std::endl;
-		bPressed = true;
-	}
-	//if we release the key then set pressed to false
-	else if (!PlayerInput->IsKeyDown(SDL_SCANCODE_1)) {
-		bPressed = false;
-	}
-
-	//store the state of the key
-	static bool bPressed2 = false;
-	//on pressed go back to the previous game
-	if (PlayerInput->IsKeyDown(SDL_SCANCODE_2)) {
-		GameStates->PopState();
-		std::cout << "Returned to Previous Game" << std::endl;
-		bPressed2 = true;
-	}
-	else if (!PlayerInput->IsKeyDown(SDL_SCANCODE_2)) {
-		bPressed2 = false;
-	}
-
 }
 
 void Game::Draw()
@@ -208,16 +180,33 @@ void Game::Run()
 
 void Game::CloseGame()
 {
-	//handle game asset deletion
-	cout << "Deleting Game Assets..." << endl;
-	delete GameStates;
+	// clean up any values that were initialised into memory
 
-	// delete player input from memory
-	delete PlayerInput;
+	if (GameStates != nullptr) {
+		//handle game asset deletion
+		cout << "Deleting Game Assets..." << endl;
+		delete GameStates;
+	}
+
+	if (PlayerInput != nullptr) {
+		// delete player input from memory
+		cout << "Deleting top level systems..." << endl;
+		delete PlayerInput;
+	}
 
 	//Handle SDL unintialisation
 	cout << "Cleaning up SDL" << endl;
-	SDL_DestroyWindow(SdlWindow);
+
+	if (SdlWindow != nullptr) {
+		//destroy the sdl window
+		SDL_DestroyWindow(SdlWindow);
+	}
+
+	if (SdlRenderer != nullptr) {
+		//destroy the sdlrenderer
+		SDL_DestroyRenderer(SdlRenderer);
+	}
+
 	SDL_Quit();
 }
 
@@ -226,7 +215,7 @@ void Game::BeginPlay()
 	cout << "Load Game Assets..." << endl;
 
 	//create a game state for the starting state
-	GameState* StartingState = new GameState(SdlWindow, SdlRenderer);
+	PlayState* StartingState = new PlayState(SdlWindow, SdlRenderer);
 	//create a game state machine and add the starting state
 	GameStates = new GameStateMachine(StartingState);
 }

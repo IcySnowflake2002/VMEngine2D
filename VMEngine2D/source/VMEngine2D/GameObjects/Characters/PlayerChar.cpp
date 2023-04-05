@@ -97,16 +97,31 @@ void PlayerChar::Update()
 	//Run the parent class update first
 	Character::Update();
 
-	CharPhysics->AddForce(MovementDir, 850.0f);
+	CharPhysics->AddForce(MovementDir, 900.0f);
 
 	if (CharCollision->IsOverlappingTag("Enemy")) {
 		bOverlapDetected = true;
 
 		//getting all overlapped enemies and destroy them
 		for (Collision* Enemy : CharCollision->GetOverlappedByTag("Enemy")) {
+			//if enemy is not being destroyed, destroy them
 			if (!Enemy->GetOwner()->ShouldDestroy()) {
-				std::cout << "Kill the Enemy!" << std::endl;
 				Enemy->GetOwner()->DestroyGameObject();
+				//add to score
+				Game::GetGameInstance().GameScore += 100;
+			}
+		}
+	}
+
+	if (CharCollision->IsOverlappingTag("Rocket")) {
+		bOverlapDetected = true;
+
+		//getting all overlapped collectibles and destroying them
+		for (Collision* Collectible : CharCollision->GetOverlappedByTag("Rocket")) {
+			if (!Collectible->GetOwner()->ShouldDestroy()) {
+				Collectible->GetOwner()->DestroyGameObject();
+				Game::GetGameInstance().GameScore += 50;
+
 			}
 		}
 	}

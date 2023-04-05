@@ -8,6 +8,8 @@ class Input;
 class GameObject;
 class Collision;
 
+class Text;
+
 using namespace std;
 
 //at compile time the compiler will turn the type definition into the proper one
@@ -22,11 +24,11 @@ public:
 	~GameState();
 
 	//Game Loop functions for the specific state |
-	void ProcessInput(Input* PlayerInput);
+	virtual void ProcessInput(Input* PlayerInput);
 
-	void Update(float DeltaTime);
+	virtual void Update(float DeltaTime);
 
-	void Draw(SDL_Renderer* Renderer);
+	virtual void Draw(SDL_Renderer* Renderer);
 
 	void HandleGarbage();
 
@@ -44,10 +46,17 @@ public:
 	//State Updates |
 
 	//run when the state updates for the first time
-	void BeginState();
+	virtual	void BeginState();
 	
 	//run when the game state has ended
-	void EndState();
+	virtual void EndState();
+
+protected:
+	//add gameobjects to the state
+	void ActivateGameObject(GameObject* ObjectToAdd);
+
+	//add text object to the state
+	void ActivateTextObject(Text* TextToAdd);
 
 protected:
 	// the window assigned to this state
@@ -61,6 +70,9 @@ private:
 
 	// store all of the collision components specific to the state
 	vector<Collision*> StateCollisions;
+
+	//hold all of the text objects in the state
+	vector<Text*> StateTextObjects;
 
 	//will determine when the begin play is activated
 	bool bHasActivated;

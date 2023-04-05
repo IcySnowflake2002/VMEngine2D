@@ -31,14 +31,11 @@ public:
 	//Sets bGameOver to true which closes the app
 	void CloseApp() { bIsGameOver = true; }
 
-	//Add a collision component to the components stack
-	void AddCollisionToGame(Collision* Collider);
-
-	//remove a collision from the component stack
-	void RemoveCollisionFromGame(Collision* Collider);
-
 	//Return all the colliders in the game
 	std::vector<Collision*> GetGameColliders() const;
+
+	//Return the GameStateMachine
+	GameStateMachine* GetGameStates() { return GameStates; }
 
 private: 
 	//Constructor
@@ -66,6 +63,10 @@ private:
 
 	//Sort out Garbage
 	void HandleGarbage();
+
+public:
+	//store the current players score to be shared across states
+	unsigned int GameScore;
 
 private:
 	//handle the game loop condition

@@ -1,8 +1,10 @@
-﻿  Game.cpp
-C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Game.cpp(115,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  VMEngine2D.vcxproj -> C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\x64\Debug\VMEngine2D.exe
-  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2.dll
-  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_image.dll
-  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_mixer.dll
-  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_ttf.dll
+﻿  PlayState.cpp
+D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(93,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(131,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(131,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  VMEngine2D.vcxproj -> D:\Users\9092\Documents\GitHub\VMEngine2D\x64\Debug\VMEngine2D.exe
+  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2.dll
+  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_image.dll
+  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_mixer.dll
+  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_ttf.dll
           4 file(s) copied.
