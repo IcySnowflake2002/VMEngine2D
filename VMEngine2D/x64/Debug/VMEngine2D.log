@@ -1,10 +1,36 @@
-﻿  PlayState.cpp
-D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(93,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(131,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(131,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  VMEngine2D.vcxproj -> D:\Users\9092\Documents\GitHub\VMEngine2D\x64\Debug\VMEngine2D.exe
-  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2.dll
-  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_image.dll
-  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_mixer.dll
-  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_ttf.dll
+﻿  Character.cpp
+  Source.cpp
+  Animation.cpp
+  AnimStateMachine.cpp
+  Game.cpp
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Game.cpp(114,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  GameObject.cpp
+  Collectible.cpp
+  Enemy.cpp
+  PlayerChar.cpp
+  Components.cpp
+  Collision.cpp
+  Physics.cpp
+  GameState.cpp
+  GameOverState.cpp
+  PlayState.cpp
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(93,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(131,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(131,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Input.cpp
+  Text.cpp
+  Texture.cpp
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Texture.cpp(72,30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Texture.cpp(73,30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Texture.cpp(77,17): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Texture.cpp(78,17): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
+  Vector2.cpp
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Vector2.cpp(101,11): warning C4552: '/': result of expression not used
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Vector2.cpp(102,11): warning C4552: '/': result of expression not used
+  Generating Code...
+  VMEngine2D.vcxproj -> C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\x64\Debug\VMEngine2D.exe
+  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2.dll
+  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_image.dll
+  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_mixer.dll
+  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_ttf.dll
           4 file(s) copied.
