@@ -1,6 +1,9 @@
 #pragma once
 #include "VMEngine2D/GameState.h"
 
+class Text;
+class PlayerChar;
+
 class PlayState :
 	public GameState {
 public:
@@ -23,6 +26,9 @@ protected:
 	//Store the text for the objective
 	Text* GoalText;
 
+	//store the text for the Lives
+	Text* LivesText;
+
 	//enemy spawn timer
 	double SpawnTimer;
 
@@ -34,4 +40,7 @@ protected:
 
 	//time to spawn Collectibles
 	double CollectTime;
+
+	//Store the player character
+	PlayerChar* Player;
 };

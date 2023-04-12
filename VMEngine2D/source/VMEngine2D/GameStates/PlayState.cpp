@@ -13,6 +13,7 @@ PlayState::PlayState(SDL_Window* Window, SDL_Renderer* Renderer)
 	GoalText = nullptr;
 	SpawnTimer = 0.0;
 	SpawnTime = 0.5;
+	Player = nullptr;
 }
 
 void PlayState::BeginState()
@@ -20,10 +21,10 @@ void PlayState::BeginState()
 	//this runs the parent function
 	GameState::BeginState();
 	Game::GetGameInstance().GameScore = 0;
-	PlayerChar* MyCharacter = new PlayerChar(Vector2(100.0f, 100.0f), StateRenderer);
+	Player = new PlayerChar(Vector2(100.0f, 100.0f), StateRenderer);
 
 	//Add the character into the game object stack
-	ActivateGameObject(MyCharacter);
+	SpawnGameObject(Player);
 
 	/// CREATE SCORE TEXT ///
 
@@ -41,6 +42,29 @@ void PlayState::BeginState()
 
 	//add the text to the game state
 	ActivateTextObject(ScoreText);
+
+	/// CREATE LIVES TEXT ///
+
+	LivesText = new Text(StateRenderer);
+
+	//intialise a width (w) and height (h) int
+	int w, h = 0;
+
+	// get the window size and set the width and height
+	SDL_GetWindowSize(StateWindow, &w, &h);
+
+	//adjust the starting setting
+	STTextInfo LivesInfo;
+	LivesInfo.TextStr = "Lives: ##";
+	LivesInfo.Size = 40;
+	//set the y position of the text using the height of the window
+	LivesInfo.Position = Vector2(25.0f, static_cast<float>(h) - 75.0f);
+
+	//create the text using the settings and font
+	LivesText->InitText("Content/images/Fonts/Oswald-Medium.ttf", LivesInfo);
+
+	//Add the lives text to the gamestate
+	ActivateTextObject(LivesText);
 
 	/// CREATE GOAL TEXT ///
 
@@ -147,8 +171,11 @@ void PlayState::Update(float DeltaTime)
 	//update the score each frame
 	ScoreText->SetText("Score: " + to_string(Game::GetGameInstance().GameScore));
 
+	//update the lives each frame
+	LivesText->SetText("Lives: " + to_string(Player->GetLives()));
+
 	//after score is obtained switch to game over
-	if (Game::GetGameInstance().GameScore >= 5000) {
+	if (Game::GetGameInstance().GameScore >= 5000 || Player->GetLives() == 0) {
 		GameOverState* NewState = new GameOverState(StateWindow, StateRenderer);
 		Game::GetGameInstance().GetGameStates()->SwitchState(NewState);
 	}

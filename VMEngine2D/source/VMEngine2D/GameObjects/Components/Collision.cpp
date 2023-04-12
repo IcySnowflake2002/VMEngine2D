@@ -16,10 +16,6 @@ Collision::~Collision()
 
 	//loop through all the collisions we are overlapping
 	for (Collision* OtherCol : OverlappedCollisions) {
-		// if the collider is going to be destroyed, then ignore the remove
-		if (OtherCol->GetOwner()->ShouldDestroy()) {
-			continue;
-		}
 		//remove self from the overlapped collisions - overlapped collisions vector
 		OtherCol->RemoveCollisionFromOverlapped(this);
 	}
@@ -33,7 +29,7 @@ void Collision::Update()
 	//follow the position of the parent game object
 	Dimensions.Position = OwnerObject->Position;
 
-	for (Collision* OtherCol : Game::GetGameInstance().GetGameColliders()) {
+	for (Collision* OtherCol : AttatchedGameState->GetGameStateCollisions()) {
 		// skip this collision
 		if (OtherCol == this) {
 			continue; //continue will skip to the next item in the array
@@ -114,6 +110,10 @@ std::vector<Collision*> Collision::GetOverlappedByTag(const char* Tag)
 
 void Collision::RemoveCollisionFromOverlapped(Collision* Collision)
 {
+	if (OverlappedCollisions.size() <= 0) {
+		return;
+	}
+
 	//erase the component from the overlapped collisions and resize the array
 	OverlappedCollisions.erase(
 		//this is like a find iterator function

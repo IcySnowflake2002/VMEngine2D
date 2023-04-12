@@ -15,6 +15,9 @@ Character::Character(Vector2 StartPosition)
 	bOverlapDetected = false;
 	bDebugCollision = true;
 
+	//make sure nothing is dead on spawn
+	Lives = 1;
+
 	//create a new PhysicsComponent and store it
 	CharPhysics = new Physics(this);
 
@@ -76,4 +79,24 @@ void Character::AddAnimation(SDL_Renderer* Renderer, const char* SpriteSheetPath
 {
 	// add an animation to the anim state machine using the anim state machine function
 	CharacterAnimations->AddAnimation(Renderer, SpriteSheetPath, AnimationData);
+}
+
+void Character::AddLives(int Amount)
+{
+	//clamp the value - prevent a negative number from being used
+	Amount = std::max(0, Amount);
+
+	//Add the amount to the lives
+	Lives += Amount;
+}
+
+void Character::RemoveLives(int Amount)
+{
+	//Create a fake integer and clamp it instead
+	int NewLives = Lives - Amount;
+
+	NewLives = std::max(0, NewLives);
+
+	//Remove the amount from the Lives using the clamped integer
+	Lives = NewLives;
 }

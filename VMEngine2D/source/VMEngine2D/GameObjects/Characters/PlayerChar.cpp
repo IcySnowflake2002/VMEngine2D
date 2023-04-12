@@ -4,6 +4,8 @@
 #include "VMEngine2D/GameObjects/Components/Collision.h"
 #include "VMEngine2D/AnimStateMachine.h"
 #include "VMEngine2D/Game.h"
+#include "VMEngine2D/GameObjects/Projectile.h"
+#include "VMEngine2D/GameState.h"
 
 PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 	: Character(StartPosition)
@@ -13,6 +15,8 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 
 	STAnimationData AnimData = STAnimationData();
 	AnimData.FPS = 0;
+
+	Lives = 3;
 
 	// Add ship texture into AnimState - 0
 	AddAnimation(Renderer,
@@ -39,13 +43,6 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 	AddAnimation(Renderer,
 		"Content/Main Ship/Enginefx/sc_power.png",
 		AnimData);
-
-}
-
-	
-
-PlayerChar::~PlayerChar()
-{
 
 }
 
@@ -90,6 +87,30 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 	if (MovementDir.Length() > 0.0f) {
 		BoostersIndex = PlayerAnims::BOO_POWER;
 	}
+
+	//how long the player has to wait in-between shots
+	static float FireTimer = 0.25f;
+	FireTimer += Game::GetGameInstance().GetFDeltaTime();
+
+	//Fire Projectile
+	if (PlayerInput->IsKeyDown(SDL_SCANCODE_R) && FireTimer >= 0.25f) {
+		Projectile* P = new Projectile();
+
+		//Setting up neccessary information
+		P->Position = Position;
+		P->Position.x += 64.0f;
+		P->Position.y += 64.0f;
+		P->Acceleration = 1000.0f;
+		P->Direction = Vector2(0.0f, -1.0f);
+		P->TargetTag = "Enemy";
+
+		//Spawning Projectile
+		Game::GetGameInstance().GetGameStates()->GetCurrentState()->SpawnGameObject(P);
+		std::cout << "Spawned Projectile" << std::endl;
+
+		//Reset Firing Timer
+		FireTimer = 0.0f;
+	}
 }
 
 void PlayerChar::Update()
@@ -106,9 +127,9 @@ void PlayerChar::Update()
 		for (Collision* Enemy : CharCollision->GetOverlappedByTag("Enemy")) {
 			//if enemy is not being destroyed, destroy them
 			if (!Enemy->GetOwner()->ShouldDestroy()) {
-				Enemy->GetOwner()->DestroyGameObject();
-				//add to score
-				Game::GetGameInstance().GameScore += 100;
+				dynamic_cast<Character*>(Enemy->GetOwner())->RemoveLives(1);
+				//Remove life from player
+				RemoveLives(1);
 			}
 		}
 	}
@@ -119,8 +140,7 @@ void PlayerChar::Update()
 		//getting all overlapped collectibles and destroying them
 		for (Collision* Collectible : CharCollision->GetOverlappedByTag("Rocket")) {
 			if (!Collectible->GetOwner()->ShouldDestroy()) {
-				Collectible->GetOwner()->DestroyGameObject();
-				Game::GetGameInstance().GameScore += 50;
+				dynamic_cast<Character*>(Collectible->GetOwner())->RemoveLives(1);
 
 			}
 		}

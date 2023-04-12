@@ -22,6 +22,18 @@ public:
 	// Add an animation into the AnimStateMachine
 	void AddAnimation(SDL_Renderer* Renderer, const char* SpriteSheetPath, STAnimationData AnimationData);
 
+	//get the lives of the character
+	unsigned int GetLives() const { return Lives; }
+
+	//Set the lives of the character
+	void SetLives(unsigned int NewLives) { Lives = NewLives; }
+
+	//Increase the lives by the amount listed
+	void AddLives(int Amount);
+
+	//Decrease the lives by the amount listed
+	void RemoveLives(int Amount);
+
 protected:
 	//Store all animations
 	AnimStateMachine* CharacterAnimations;
@@ -46,4 +58,8 @@ protected:
 
 	//show collision if true
 	bool bDebugCollision;
+
+	// lives for character objects
+	// when 0, game ends
+	unsigned int Lives;
 };

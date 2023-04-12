@@ -43,6 +43,13 @@ void Enemy::Update()
 
 	CharPhysics->AddForce(MovementDir, 300.0f);
 
+	//check if lives are 0
+	if (GetLives() == 0) {
+		//add to score
+		Game::GetGameInstance().GameScore += 100;
+		//destroy self if 0
+		this->DestroyGameObject();
+	}
 }
 
 void Enemy::Draw(SDL_Renderer* Renderer)

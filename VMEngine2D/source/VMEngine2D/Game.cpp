@@ -29,6 +29,12 @@ void Game::DestroyGameInstance()
 	delete GameInstance;
 }
 
+void Game::Instantiate()
+{
+	//run the gamestates instantiate function 
+	GetGameStates()->GetCurrentState()->Instantiate();
+}
+
 std::vector<Collision*> Game::GetGameColliders() const
 {
 	// return the collisions of the current state
@@ -169,6 +175,7 @@ void Game::Run()
 	//check if the game over is false (something has thrown an error)
 	//If not false run game loop
 	while (!bIsGameOver) {
+		Instantiate();
 		ProcessInput();
 		Update();
 		Draw();

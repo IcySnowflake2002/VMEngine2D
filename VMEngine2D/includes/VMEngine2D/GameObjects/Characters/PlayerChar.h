@@ -12,7 +12,6 @@ class PlayerChar :
 	public Character {
 public:
 	PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer);
-	virtual ~PlayerChar();
 
 	//Override these methods to create a more specialized design for the Player Character
 	virtual void ProcessInput(Input* PlayerInput) override;
@@ -27,4 +26,5 @@ protected:
 
 	// play the correct animation for the boosters
 	unsigned int BoostersIndex;
+
 };

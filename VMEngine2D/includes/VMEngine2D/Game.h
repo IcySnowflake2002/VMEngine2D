@@ -19,6 +19,9 @@ public:
 	//Destroy the game
 	static void DestroyGameInstance();
 
+	//Add things into the game
+	void Instantiate();
+
 	//Initialise the Game before the loop runs
 	void Start(const char* WTitle, bool bFullScreen, int WWidth, int WHeight);
 

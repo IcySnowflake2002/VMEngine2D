@@ -33,6 +33,13 @@ void Collectible::Update()
 {
 	//Run Parent class update first
 	Character::Update();
+	//check if lives are 0
+	if (GetLives() == 0) {
+		//add to score
+		Game::GetGameInstance().GameScore += 50;
+		//destroy self if 0
+		this->DestroyGameObject();
+	}
 }
 
 void Collectible::Draw(SDL_Renderer* Renderer)

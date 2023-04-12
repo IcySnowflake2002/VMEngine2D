@@ -23,12 +23,17 @@ public:
 	GameState(SDL_Window* Window, SDL_Renderer* Renderer);
 	~GameState();
 
+	
+
 	//Game Loop functions for the specific state |
 	virtual void ProcessInput(Input* PlayerInput);
 
 	virtual void Update(float DeltaTime);
 
 	virtual void Draw(SDL_Renderer* Renderer);
+
+	//Add objects into the game
+	void Instantiate();
 
 	void HandleGarbage();
 
@@ -51,6 +56,13 @@ public:
 	//run when the game state has ended
 	virtual void EndState();
 
+	//get the current renderer/window of the state
+	SDL_Renderer* GetRenderer() const { return StateRenderer;  }
+	SDL_Window* GetWindow() const { return StateWindow;  }
+
+	//add an object to the game stack
+	void SpawnGameObject(GameObject* ObjectToSpawn);
+
 protected:
 	//add gameobjects to the state
 	void ActivateGameObject(GameObject* ObjectToAdd);
@@ -67,6 +79,9 @@ protected:
 private:
 	//store all of the game objects specific to the state
 	vector<GameObject*> StateGameObjects;
+
+	//All of the game objects that will spawn on the next frame loop
+	vector<GameObject*> ObjectsToSpawn;
 
 	// store all of the collision components specific to the state
 	vector<Collision*> StateCollisions;
