@@ -93,7 +93,7 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 	FireTimer += Game::GetGameInstance().GetFDeltaTime();
 
 	//Fire Projectile
-	if (PlayerInput->IsKeyDown(SDL_SCANCODE_R) && FireTimer >= 0.25f) {
+	if (PlayerInput->IsKeyDown(SDL_SCANCODE_Z) && FireTimer >= 0.25f) {
 		Projectile* P = new Projectile();
 
 		//Setting up neccessary information

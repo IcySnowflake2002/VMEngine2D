@@ -1,7 +1,6 @@
-﻿  Projectile.cpp
-  VMEngine2D.vcxproj -> C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\x64\Debug\VMEngine2D.exe
-  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2.dll
-  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_image.dll
-  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_mixer.dll
-  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_ttf.dll
-          4 file(s) copied.
+﻿  PlayState.cpp
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(13,2): error C2065: 'GoalText': undeclared identifier
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(100,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(138,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(138,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(177,2): error C2065: 'GoalText': undeclared identifier

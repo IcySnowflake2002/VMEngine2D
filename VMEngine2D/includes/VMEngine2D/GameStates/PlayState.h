@@ -23,9 +23,6 @@ protected:
 	//store the text for the score
 	Text* ScoreText;
 
-	//Store the text for the objective
-	Text* GoalText;
-
 	//store the text for the Lives
 	Text* LivesText;
 

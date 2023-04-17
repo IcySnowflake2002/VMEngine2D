@@ -65,23 +65,6 @@ void PlayState::BeginState()
 
 	//Add the lives text to the gamestate
 	ActivateTextObject(LivesText);
-
-	/// CREATE GOAL TEXT ///
-
-	//create an empty text object
-	GoalText = new Text(StateRenderer);
-
-	//Adjust the text settings
-	STTextInfo GoalInfo;
-	GoalInfo.TextStr = "Obj: Get 5000 points!";
-	GoalInfo.Size = 40;
-	GoalInfo.Position = Vector2(25.0f, 75.0f);
-
-	//initialise the text with a font and settings
-	GoalText->InitText("Content/images/Fonts/Oswald-Medium.ttf", GoalInfo);
-
-	//add the text to the game state
-	ActivateTextObject(GoalText);
 }
 
 void PlayState::ProcessInput(Input* PlayerInput)
@@ -174,8 +157,8 @@ void PlayState::Update(float DeltaTime)
 	//update the lives each frame
 	LivesText->SetText("Lives: " + to_string(Player->GetLives()));
 
-	//after score is obtained switch to game over
-	if (Game::GetGameInstance().GameScore >= 5000 || Player->GetLives() == 0) {
+	//after player runs out of lives, end game
+	if (Player->GetLives() == 0) {
 		GameOverState* NewState = new GameOverState(StateWindow, StateRenderer);
 		Game::GetGameInstance().GetGameStates()->SwitchState(NewState);
 	}

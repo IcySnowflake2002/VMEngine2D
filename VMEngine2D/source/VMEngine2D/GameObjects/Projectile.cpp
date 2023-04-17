@@ -23,7 +23,7 @@ Projectile::Projectile()
 
 	Proj_Phy = new Physics(this);
 	Proj_Phy->MaxVelocity = 1000.0f;
-	Proj_Phy->Drag = 1.0f;
+	Proj_Phy->Drag = 0.5f;
 
 	STAnimationData AnimData;
 	AnimData.FPS = 24;
@@ -69,11 +69,4 @@ void Projectile::Draw(SDL_Renderer* Renderer)
 	GameObject::Draw(Renderer);
 
 	Animations->Draw(Renderer, 0, Position, Rotation, Scale, false);
-	SDL_SetRenderDrawColor(Renderer, 255, 0, 0, 0);
-	SDL_FRect ColRect;
-	ColRect.x = Proj_Col->Dimensions.Position.x;
-	ColRect.y = Proj_Col->Dimensions.Position.y;
-	ColRect.w = Proj_Col->Dimensions.Width;
-	ColRect.h = Proj_Col->Dimensions.Height;
-	SDL_RenderDrawRectF(Renderer, &ColRect);
 }

@@ -154,7 +154,7 @@ void Game::Update()
 void Game::Draw()
 {
 	//set background colour of app
-	SDL_SetRenderDrawColor(SdlRenderer, 0, 50, 200, 255);
+	SDL_SetRenderDrawColor(SdlRenderer, 48, 25, 42, 255);
 	//clear the previous frame
 	SDL_RenderClear(SdlRenderer);
 
