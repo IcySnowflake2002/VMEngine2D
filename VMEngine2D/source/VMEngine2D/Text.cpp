@@ -5,6 +5,7 @@ Text::Text(SDL_Renderer* Renderer)
 {
 	TextRenderer = Renderer;
 	TextTexture = nullptr;
+	FontPath = " ";
 }
 
 Text::~Text()

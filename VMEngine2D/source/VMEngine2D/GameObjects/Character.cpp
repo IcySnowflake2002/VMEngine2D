@@ -13,7 +13,7 @@ Character::Character(Vector2 StartPosition)
 	bFlipped = false;
 	Position = StartPosition;
 	bOverlapDetected = false;
-	bDebugCollision = true;
+	bDebugCollision = false;
 
 	//make sure nothing is dead on spawn
 	Lives = 1;

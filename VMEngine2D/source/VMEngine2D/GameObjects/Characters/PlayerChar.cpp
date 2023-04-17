@@ -11,6 +11,7 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 	: Character(StartPosition)
 {
 	BoostersIndex = PlayerAnims::BOO_IDLE;
+	DmgIndex = PlayerAnims::BASE_FULL;
 	Scale = 3.0f;
 
 	STAnimationData AnimData = STAnimationData();
@@ -42,6 +43,24 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 	//Add the boosters powered animation to AnimState - 3
 	AddAnimation(Renderer,
 		"Content/Main Ship/Enginefx/sc_power.png",
+		AnimData);
+	
+	//Adding in the damaged variants
+	AnimData.FPS = 0;
+
+	//Add the small damage sprite to AnimState - 4
+	AddAnimation(Renderer,
+		"Content/Main Ship/base_smldmg.png",
+		AnimData);
+
+	//Add the medium damage sprite to AnimState - 5
+	AddAnimation(Renderer,
+		"Content/Main Ship/base_meddmg.png",
+		AnimData);
+
+	//Add the large damage sprite to AnimState - 6
+	AddAnimation(Renderer,
+		"Content/Main Ship/base_lrgdrmg.png",
 		AnimData);
 
 }
@@ -111,6 +130,18 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 		//Reset Firing Timer
 		FireTimer = 0.0f;
 	}
+
+	if (Lives == 3) {
+		DmgIndex = PlayerAnims::BASE_FULL;
+	}
+
+	if (Lives == 2) {
+		DmgIndex = PlayerAnims::BASE_SMLDMG;
+	}
+
+	if (Lives == 1) {
+		DmgIndex = PlayerAnims::BASE_MEDDMG;
+	}
 }
 
 void PlayerChar::Update()
@@ -120,6 +151,8 @@ void PlayerChar::Update()
 
 	CharPhysics->AddForce(MovementDir, 900.0f);
 
+	// Enemy & Damage Changes
+	// Enemy Collision
 	if (CharCollision->IsOverlappingTag("Enemy")) {
 		bOverlapDetected = true;
 
@@ -155,6 +188,9 @@ void PlayerChar::Draw(SDL_Renderer* Renderer)
 
 	//Draw the engine to the screen
 	CharacterAnimations->Draw(Renderer, PlayerAnims::ENG_SC, Position, Rotation, Scale, bFlipped);
+
+	//draw the ship to the screen
+	CharacterAnimations->Draw(Renderer, DmgIndex, Position, Rotation, Scale, bFlipped);
 
 	//Draw and play the relevant booster animation
 	CharacterAnimations->Draw(Renderer, BoostersIndex, Position, Rotation, Scale, bFlipped);

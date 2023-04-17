@@ -10,7 +10,6 @@ PlayState::PlayState(SDL_Window* Window, SDL_Renderer* Renderer)
 	: GameState(Window, Renderer)
 {
 	ScoreText = nullptr;
-	GoalText = nullptr;
 	SpawnTimer = 0.0;
 	SpawnTime = 0.5;
 	Player = nullptr;
@@ -174,5 +173,4 @@ void PlayState::EndState()
 	GameState::EndState();
 
 	ScoreText = nullptr;
-	GoalText = nullptr;
 }

@@ -5,7 +5,10 @@ enum PlayerAnims : unsigned int {
 	BASE_FULL = 0,
 	ENG_SC = 1,
 	BOO_IDLE = 2,
-	BOO_POWER = 3
+	BOO_POWER = 3,
+	BASE_SMLDMG = 4,
+	BASE_MEDDMG = 5,
+	BASE_LRGDMG = 6
 };
 
 class PlayerChar :
@@ -27,4 +30,5 @@ protected:
 	// play the correct animation for the boosters
 	unsigned int BoostersIndex;
 
+	unsigned int DmgIndex;
 };

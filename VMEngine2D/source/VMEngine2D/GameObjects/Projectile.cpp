@@ -13,6 +13,7 @@ Projectile::Projectile()
 	Direction = Vector2::Zero();
 	Rotation = 0.0;
 	Scale = 3.0f;
+	TargetTag = " ";
 
 	Animations = new AnimStateMachine();
 	
@@ -23,7 +24,7 @@ Projectile::Projectile()
 
 	Proj_Phy = new Physics(this);
 	Proj_Phy->MaxVelocity = 1000.0f;
-	Proj_Phy->Drag = 0.5f;
+	Proj_Phy->Drag = 1.0f;
 
 	STAnimationData AnimData;
 	AnimData.FPS = 24;
@@ -69,4 +70,5 @@ void Projectile::Draw(SDL_Renderer* Renderer)
 	GameObject::Draw(Renderer);
 
 	Animations->Draw(Renderer, 0, Position, Rotation, Scale, false);
+
 }
