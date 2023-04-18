@@ -12,6 +12,7 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 {
 	BoostersIndex = PlayerAnims::BOO_IDLE;
 	DmgIndex = PlayerAnims::BASE_FULL;
+	ShdIndex = PlayerAnims::EMPTY;
 	Scale = 3.0f;
 
 	STAnimationData AnimData = STAnimationData();
@@ -45,20 +46,33 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 		"Content/Main Ship/Enginefx/sc_power.png",
 		AnimData);
 	
+	//Update AnimData to handle the Shield animation
+	AnimData.FPS = 24;
+	AnimData.MaxFrames = 6;
+	AnimData.EndFrame = 5;
+
+	//Add the Shield animation to AnimState - 4
+	AddAnimation(Renderer,
+		"Content/Main Ship/Shields/front_side_shd.png",
+		AnimData);
+
+
 	//Adding in the damaged variants
 	AnimData.FPS = 0;
+	AnimData.MaxFrames = 1;
+	AnimData.EndFrame = 0;
 
-	//Add the small damage sprite to AnimState - 4
+	//Add the small damage sprite to AnimState - 5
 	AddAnimation(Renderer,
 		"Content/Main Ship/base_smldmg.png",
 		AnimData);
 
-	//Add the medium damage sprite to AnimState - 5
+	//Add the medium damage sprite to AnimState - 6
 	AddAnimation(Renderer,
 		"Content/Main Ship/base_meddmg.png",
 		AnimData);
 
-	//Add the large damage sprite to AnimState - 6
+	//Add the large damage sprite to AnimState - 7
 	AddAnimation(Renderer,
 		"Content/Main Ship/base_lrgdrmg.png",
 		AnimData);
@@ -78,7 +92,7 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_UP)) {
 		//set input y to up
 		MovementDir.y = -5.0f;
-		
+
 	}
 
 	if (PlayerInput->IsKeyDown(SDL_SCANCODE_DOWN)) {
@@ -121,6 +135,7 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 		P->Position.y += 64.0f;
 		P->Acceleration = 1000.0f;
 		P->Direction = Vector2(0.0f, -1.0f);
+		P->ProjIndex = ProjAnims::PlayerProj;
 		P->TargetTag = "Enemy";
 
 		//Spawning Projectile
@@ -129,18 +144,6 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 
 		//Reset Firing Timer
 		FireTimer = 0.0f;
-	}
-
-	if (Lives == 3) {
-		DmgIndex = PlayerAnims::BASE_FULL;
-	}
-
-	if (Lives == 2) {
-		DmgIndex = PlayerAnims::BASE_SMLDMG;
-	}
-
-	if (Lives == 1) {
-		DmgIndex = PlayerAnims::BASE_MEDDMG;
 	}
 }
 
@@ -153,28 +156,71 @@ void PlayerChar::Update()
 
 	// Enemy & Damage Changes
 	// Enemy Collision
-	if (CharCollision->IsOverlappingTag("Enemy")) {
+	if (CharCollision->IsOverlappingTag("Enemy") || CharCollision->IsOverlappingTag("Enemy2")) {
 		bOverlapDetected = true;
 
 		//getting all overlapped enemies and destroy them
-		for (Collision* Enemy : CharCollision->GetOverlappedByTag("Enemy")) {
+		for (Collision* Enemy : CharCollision->GetOverlappedByTag("Enemy"), CharCollision->GetOverlappedByTag("Enemy2")) {
 			//if enemy is not being destroyed, destroy them
 			if (!Enemy->GetOwner()->ShouldDestroy()) {
 				dynamic_cast<Character*>(Enemy->GetOwner())->RemoveLives(1);
 				//Remove life from player
 				RemoveLives(1);
+				//Check if player has shield and remove it
+				if (ShdIndex = PlayerAnims::SHIELD) {
+					ShdIndex = PlayerAnims::EMPTY;
+				}
 			}
 		}
 	}
 
-	if (CharCollision->IsOverlappingTag("Rocket")) {
+	//Damage Anims
+	if (Lives == 3) {
+		DmgIndex = PlayerAnims::BASE_FULL;
+	}
+
+	if (Lives == 2) {
+		DmgIndex = PlayerAnims::BASE_SMLDMG;
+	}
+
+	if (Lives == 1) {
+		DmgIndex = PlayerAnims::BASE_MEDDMG;
+	}
+
+	if (CharCollision->IsOverlappingTag("Shield")) {
 		bOverlapDetected = true;
 
 		//getting all overlapped collectibles and destroying them
-		for (Collision* Collectible : CharCollision->GetOverlappedByTag("Rocket")) {
+		for (Collision* Collectible : CharCollision->GetOverlappedByTag("Shield")) {
 			if (!Collectible->GetOwner()->ShouldDestroy()) {
 				dynamic_cast<Character*>(Collectible->GetOwner())->RemoveLives(1);
+				//Add Shield to Player so long as it is not max lives
+				if (Lives != MaxLives || Lives < 4) {
+					//Check if Shield has already been applied
+					if (ShdIndex = PlayerAnims::EMPTY) {
+						ShdIndex = PlayerAnims::SHIELD;
+					}
+					AddLives(1);
+				}
+				
+			}
+		}
+	}
 
+	//Enemy Projectile Collision
+	if (CharCollision->IsOverlappingTag("Player")) {
+		bOverlapDetected = true;
+
+		//getting all overlapped enemy projectiles and destroying them
+		for (Collision* Projectile : CharCollision->GetOverlappedByTag("Player")) {
+			if (!Projectile->GetOwner()->ShouldDestroy()) {
+				dynamic_cast<Character*>(Projectile->GetOwner())->RemoveLives(1);
+				//Remove life from player
+				RemoveLives(1);
+				//Check if player has shield and remove it
+				if (ShdIndex = PlayerAnims::SHIELD) {
+					ShdIndex = PlayerAnims::EMPTY;
+				}
 			}
 		}
 	}
@@ -185,12 +231,14 @@ void PlayerChar::Update()
 
 void PlayerChar::Draw(SDL_Renderer* Renderer)
 {
-
 	//Draw the engine to the screen
 	CharacterAnimations->Draw(Renderer, PlayerAnims::ENG_SC, Position, Rotation, Scale, bFlipped);
 
 	//draw the ship to the screen
-	CharacterAnimations->Draw(Renderer, DmgIndex, Position, Rotation, Scale, bFlipped);
+	//CharacterAnimations->Draw(Renderer, DmgIndex, Position, Rotation, Scale, bFlipped);
+
+	//Draw and play the relevant shield animation
+	CharacterAnimations->Draw(Renderer, ShdIndex, Position, Rotation, Scale, bFlipped);
 
 	//Draw and play the relevant booster animation
 	CharacterAnimations->Draw(Renderer, BoostersIndex, Position, Rotation, Scale, bFlipped);

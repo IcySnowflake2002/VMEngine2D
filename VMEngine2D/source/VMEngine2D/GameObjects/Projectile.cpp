@@ -14,6 +14,7 @@ Projectile::Projectile()
 	Rotation = 0.0;
 	Scale = 3.0f;
 	TargetTag = " ";
+	ProjIndex = EmptyProj;
 
 	Animations = new AnimStateMachine();
 	
@@ -34,7 +35,16 @@ Projectile::Projectile()
 
 	SDL_Renderer* R = Game::GetGameInstance().GetGameStates()->GetCurrentState()->GetRenderer();
 
+	//Load Player Projectile
 	Animations->AddAnimation(R, "Content/Main Ship/Projectiles/rocket.png", AnimData);
+
+	//Enemy Projectile
+	AnimData.FPS = 24;
+	AnimData.MaxFrames = 8;
+	AnimData.EndFrame = 7;
+
+	Animations->AddAnimation(R, "Content/Enemy/Weaponfx/NS_bul.png", AnimData);
+
 }
 
 Projectile::~Projectile()
@@ -69,6 +79,6 @@ void Projectile::Draw(SDL_Renderer* Renderer)
 {
 	GameObject::Draw(Renderer);
 
-	Animations->Draw(Renderer, 0, Position, Rotation, Scale, false);
+	Animations->Draw(Renderer, ProjIndex, Position, Rotation, Scale, false);
 
 }

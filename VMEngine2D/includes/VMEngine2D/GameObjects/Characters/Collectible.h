@@ -2,7 +2,7 @@
 #include "VMEngine2D/GameObjects/Character.h"
 
 enum CollectAnims : unsigned int {
-	ROCKET = 0
+	SHIELD = 0
 };
 
 class Collectible : public Character {

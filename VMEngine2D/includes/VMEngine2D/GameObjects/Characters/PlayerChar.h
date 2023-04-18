@@ -6,9 +6,11 @@ enum PlayerAnims : unsigned int {
 	ENG_SC = 1,
 	BOO_IDLE = 2,
 	BOO_POWER = 3,
-	BASE_SMLDMG = 4,
-	BASE_MEDDMG = 5,
-	BASE_LRGDMG = 6
+	SHIELD = 4,
+	BASE_SMLDMG = 5,
+	BASE_MEDDMG = 6,
+	BASE_LRGDMG = 7,
+	EMPTY = 8
 };
 
 class PlayerChar :
@@ -31,4 +33,10 @@ protected:
 	unsigned int BoostersIndex;
 
 	unsigned int DmgIndex;
+
+	// play the correct animation for the shield
+	unsigned int ShdIndex;
+
+	//set the max amount of lives
+	unsigned int MaxLives = 4;
 };

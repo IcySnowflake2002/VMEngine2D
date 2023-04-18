@@ -141,11 +141,11 @@ void PlayState::Update(float DeltaTime)
 
 		//Reset Timer to 0 and start again
 		CollectTimer = 0.0;
-		CollectTime *= 0.99;
+		CollectTime = 180.0;
 
 		//won't let spawn timer spawn faster than 3 seconds
 		if (CollectTime < 2.0f) {
-			CollectTime = 2.0f;
+			CollectTime = 180.0f;
 		}
 
 	}

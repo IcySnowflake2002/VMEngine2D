@@ -10,7 +10,7 @@ Collectible::Collectible(Vector2 StartPosition, SDL_Renderer* Renderer)
 	MovementDir = Vector2(0.0f, 1.0f);
 	Rotation = 180.0;
 	CharPhysics->MaxVelocity = 300.0f;
-	Tag = "Rocket";
+	Tag = "Shield";
 
 	STAnimationData AnimData = STAnimationData();
 	AnimData.FPS = 24;
@@ -45,5 +45,5 @@ void Collectible::Update()
 void Collectible::Draw(SDL_Renderer* Renderer)
 {
 	//draw the collectible
-	CharacterAnimations->Draw(Renderer, CollectAnims::ROCKET, Position, Rotation, Scale, bFlipped);
+	CharacterAnimations->Draw(Renderer, CollectAnims::SHIELD, Position, Rotation, Scale, bFlipped);
 }

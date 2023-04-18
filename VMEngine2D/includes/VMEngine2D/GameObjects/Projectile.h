@@ -5,6 +5,12 @@ class AnimStateMachine;
 class Physics;
 class Collision;
 
+enum ProjAnims : unsigned int {
+	PlayerProj = 0,
+	EnemyProj = 1,
+	EmptyProj = 2
+};
+
 class Projectile : 
 	public GameObject {
 
@@ -29,6 +35,9 @@ public:
 	float Scale;
 	//any character with this tag will take damage
 	const char* TargetTag;
+
+	//Store the different projectiles
+	unsigned int ProjIndex;
 
 protected:
 	//store the texture/animation for the projectile

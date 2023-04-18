@@ -3,7 +3,8 @@
 
 enum EnemyAnims : unsigned int {
 	BASE = 0,
-	BOOSTERS = 1
+	BASE2 = 1,
+	BOOSTERS = 2
 };
 
 class Enemy :
