@@ -12,6 +12,7 @@ PlayState::PlayState(SDL_Window* Window, SDL_Renderer* Renderer)
 	ScoreText = nullptr;
 	SpawnTimer = 0.0;
 	SpawnTime = 0.5;
+	HardSpawnTime = 0.10;
 	Player = nullptr;
 }
 
@@ -79,7 +80,7 @@ void PlayState::Update(float DeltaTime)
 
 	SpawnTimer += DeltaTime;
 
-	//after 5 seconds spawn enemy then reset timer
+	//after 5 seconds spawn basic enemy then reset timer
 	if (SpawnTimer > SpawnTime) {
 		//set up variables to recieve the app window width and height
 		int WinWidth, WinHeight = 0;
@@ -110,6 +111,37 @@ void PlayState::Update(float DeltaTime)
 			SpawnTime = 1.0f;
 		}
 
+	}
+
+	//after 10 seconds spawn hard enemy then reset timer
+	if (SpawnTimer > HardSpawnTime) {
+		//set up variables to recieve the app window width and height
+		int WinWidth, WinHeight = 0;
+		//Use SDL function to set the dimensions
+		SDL_GetWindowSize(StateWindow, &WinWidth, &WinHeight);
+
+		//Increase Window Width by 1
+		WinWidth += 1;
+		WinWidth -= 128;
+
+		//get a random number between 0 and the window width
+		//rand() gets random number between 0 and number afteer %
+		int SpawnEnemyX2 = rand() % WinWidth;
+
+		// spawn an enemy based on a random screen x location
+		Enemy* NewEnemy2 = new Enemy(Vector2(SpawnEnemyX2, -128.0f), StateRenderer);
+
+		//add the enemy to the game object stack
+		ActivateGameObject(NewEnemy2);
+
+		//Reset Timer to 0 and start again
+		SpawnTimer = 0.0;
+		HardSpawnTime *= 0.99;
+
+		//won't let spawn timer spawn faster than 5 second
+		if (HardSpawnTime < 5.0f) {
+			HardSpawnTime = 5.0f;
+		}
 	}
 	
 	//Set up Collectible Timer

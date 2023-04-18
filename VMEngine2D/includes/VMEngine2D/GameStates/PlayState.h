@@ -29,8 +29,11 @@ protected:
 	//enemy spawn timer
 	double SpawnTimer;
 
-	//time to spawn enemies
+	//time to spawn basic enemies
 	double SpawnTime;
+
+	//time to spawn harder enemies
+	double HardSpawnTime;
 
 	//collectible spawn timer
 	double CollectTimer;

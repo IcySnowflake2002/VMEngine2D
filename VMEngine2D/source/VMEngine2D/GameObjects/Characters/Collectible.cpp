@@ -45,5 +45,5 @@ void Collectible::Update()
 void Collectible::Draw(SDL_Renderer* Renderer)
 {
 	//draw the collectible
-	CharacterAnimations->Draw(Renderer, CollectAnims::SHIELD, Position, Rotation, Scale, bFlipped);
+	CharacterAnimations->Draw(Renderer, CollectAnims::PU_SHIELD, Position, Rotation, Scale, bFlipped);
 }
