@@ -1,6 +1,9 @@
 #include "VMEngine2D/Input.h"
 #include "VMEngine2D/Game.h"
+#include "VMEngine2D/WindowMenu.h"
+#include "sdl2/SDL_syswm.h"
 #include <iostream>
+#include "../resource.h"
 
 Input::Input()
 {
@@ -35,6 +38,10 @@ void Input::ProcessInput()
 			//Go into the game instance and run the closeApp function.
 			Game::GetGameInstance().CloseApp();
 			break;
+		case SDL_SYSWMEVENT :
+			//Check for Win32 Events
+			HandleWMEvents(&PollEvent);
+			break;
 		default:
 			break;
 		}
@@ -48,4 +55,29 @@ bool Input::IsKeyDown(SDL_Scancode Key)
 		return false;
 	}
 	return KeyboardState[Key];
+}
+
+void Input::HandleWMEvents(SDL_Event* Event)
+{
+	//Listen out for system window menu button presses
+	switch (Event->syswm.msg->msg.win.wParam) {
+	case ID_FILE_RESTARTGAME:
+		Game::GetGameInstance().RestartGame();
+		break;
+	case ID_FILE_ENDGAME:
+		Game::GetGameInstance().CloseApp();
+		break;
+	case ID_GAME_CONTROLS:
+		Game::GetGameInstance().GetTopMenu()->ActivatePopup(
+			"Game Controls",	//title
+			"Arrow Keys to Move \n Z to shoot");			//message
+		break;
+	case ID_HELP_ABOUTVMENGINE2D:
+		Game::GetGameInstance().GetTopMenu()->ActivatePopup(
+				"About VMEngine2D",	//title
+				"VMWEngine2D is an SDL2-based C++ 2D game engine created by Dylan Miller in 2023 for Basic Game Engine Programming.");		//message
+		break;
+	default :
+		break;
+	}
 }

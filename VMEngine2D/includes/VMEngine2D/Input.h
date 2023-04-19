@@ -17,4 +17,6 @@ private:
 	//Hold all the states of each key on the keyboard (pressed or released)
 	const Uint8* KeyboardState;
 
+	//Run the listerners for the menu events
+	void HandleWMEvents(SDL_Event* Event);
 };

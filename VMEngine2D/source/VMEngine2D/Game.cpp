@@ -4,6 +4,7 @@
 #include "VMEngine2D/Input.h"
 #include "VMEngine2D/GameObject.h"
 #include "VMEngine2D/GameState.h"
+#include "VMEngine2D/WindowMenu.h"
 
 //Game States
 #include "VMEngine2D/GameStates/PlayState.h"
@@ -42,6 +43,16 @@ std::vector<Collision*> Game::GetGameColliders() const
 }
 
 
+void Game::RestartGame()
+{
+	//Reset the game score
+	GameScore = 0;
+
+	//Create a new starting state
+	PlayState* NewState = new PlayState(SdlWindow, SdlRenderer);
+	GetGameStates()->SwitchState(NewState);
+}
+
 Game::Game()
 {
 	cout << "Initialised Game Instance!" << endl;
@@ -50,6 +61,7 @@ Game::Game()
 	DeltaTime = 0.0;
 	SdlRenderer = nullptr;
 	PlayerInput = nullptr;
+	TopMenu = nullptr;
 
 	GameStates = nullptr;
 	GameScore = 0;
@@ -112,6 +124,11 @@ void Game::Start(const char* WTitle, bool bFullScreen, int WWidth, int WHeight)
 		CloseGame();
 		return;
 	}
+
+	//create a menu for the window
+	TopMenu = new WindowMenu(SdlWindow);
+	//adds the menu to the window
+	TopMenu->CreateMenuFromResource();
 
 	//Create an object of the input class
 	PlayerInput = new Input();

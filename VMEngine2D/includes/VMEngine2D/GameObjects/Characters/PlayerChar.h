@@ -38,5 +38,5 @@ protected:
 	unsigned int ShdIndex;
 
 	//set the max amount of lives
-	unsigned int MaxLives = 4;
+	unsigned int MaxLives = 5;
 };

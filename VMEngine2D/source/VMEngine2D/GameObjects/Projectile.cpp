@@ -12,7 +12,7 @@ Projectile::Projectile()
 	Acceleration = 1000.0f;
 	Direction = Vector2::Zero();
 	Rotation = 0.0;
-	Scale = 3.0f;
+	Scale = 2.0f;
 	TargetTag = " ";
 	ProjIndex = EmptyProj;
 
@@ -20,8 +20,8 @@ Projectile::Projectile()
 	
 	Proj_Col = new Collision(this);
 	Proj_Col->Dimensions.Position = Position;
-	Proj_Col->Dimensions.Width = 25.0f;
-	Proj_Col->Dimensions.Height = 25.0f;
+	Proj_Col->Dimensions.Width = 12.5f;
+	Proj_Col->Dimensions.Height = 12.5f;
 
 	Proj_Phy = new Physics(this);
 	Proj_Phy->MaxVelocity = 1000.0f;

@@ -25,8 +25,8 @@ Character::Character(Vector2 StartPosition)
 	CharCollision = new Collision(this);
 
 	//resize the collision custom to the object
-	CharCollision->Dimensions.Width = 150.0f;
-	CharCollision->Dimensions.Height = 150.0f;
+	CharCollision->Dimensions.Width = 75.0f;
+	CharCollision->Dimensions.Height = 75.0f;
 
 	std::cout << "Character created" << std::endl;
 }

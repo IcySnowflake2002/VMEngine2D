@@ -166,6 +166,7 @@
     <ClCompile Include="source\VMEngine2D\Text.cpp" />
     <ClCompile Include="source\VMEngine2D\Texture.cpp" />
     <ClCompile Include="source\VMEngine2D\Vector2.cpp" />
+    <ClCompile Include="source\VMEngine2D\WindowMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\VMEngine2D\GameObjects\Character.h" />
@@ -187,6 +188,11 @@
     <ClInclude Include="includes\VMEngine2D\Texture.h" />
     <ClInclude Include="includes\VMEngine2D\Vector2.h" />
     <ClInclude Include="includes\VMEngine2D\GameStates\GameOverState.h" />
+    <ClInclude Include="includes\VMEngine2D\WindowMenu.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VMEngine2D.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

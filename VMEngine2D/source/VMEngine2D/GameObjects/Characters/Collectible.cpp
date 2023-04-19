@@ -6,7 +6,7 @@
 Collectible::Collectible(Vector2 StartPosition, SDL_Renderer* Renderer)
 	: Character(StartPosition)
 {
-	Scale = 2.0f;
+	Scale = 1.0f;
 	MovementDir = Vector2(0.0f, 1.0f);
 	Rotation = 180.0;
 	CharPhysics->MaxVelocity = 300.0f;

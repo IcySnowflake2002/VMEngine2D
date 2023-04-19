@@ -7,6 +7,7 @@ class GameObject;
 class Input;
 class Collision;
 class GameStateMachine;
+class WindowMenu;
 
 class Game {
 public:
@@ -39,6 +40,12 @@ public:
 
 	//Return the GameStateMachine
 	GameStateMachine* GetGameStates() { return GameStates; }
+
+	// get the top level windows system menu
+	WindowMenu* GetTopMenu() const { return TopMenu;  }
+
+	// this will restart the game as if it was closed and reopened
+	void RestartGame();
 
 private: 
 	//Constructor
@@ -90,4 +97,7 @@ private:
 
 	//store the current game state
 	GameStateMachine* GameStates;
+
+	// create a window menu
+	WindowMenu* TopMenu;
 };
