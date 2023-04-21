@@ -16,7 +16,14 @@ public:
 	void RestartGame(); //restart the game without closing the app
 	void ExitApp(); //close the app completely
 	void ActivatePopup(const char* Title, const char* Message); //load a dialog box with a message
-	void ActivateDebug(SDL_Renderer* Renderer); //will show collisions
+
+	// DEBUG OPTIONS //
+	void LifeGive();
+	void ShieldGive();
+	void ScoreGive();
+	void GameOverGive();
+	void SplashGive();
+	void ColGive();
 
 private:
 	//SDL window for the menu 

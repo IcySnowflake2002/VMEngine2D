@@ -60,11 +60,19 @@ BEGIN
     POPUP "Game"
     BEGIN
         MENUITEM "Controls",                    ID_GAME_CONTROLS
-        MENUITEM "Activate Debug",              ID_GAME_ACTIVATEDEBUG
     END
     POPUP "Help"
     BEGIN
         MENUITEM "About VMEngine2D",            ID_HELP_ABOUTVMENGINE2D
+    END
+    POPUP "Debug"
+    BEGIN
+        MENUITEM "Perfectly Healthy",           ID_DEBUG_GIVEMELIVES
+        MENUITEM "Can't Touch This",            ID_DEBUG_GIVEMESHIELD
+        MENUITEM "Pity Points",                 ID_DEBUG_GIVEME100PTS
+        MENUITEM "No Game For You",             ID_DEBUG_NOGAMEFORYOU
+        MENUITEM "A Real Reset",                ID_DEBUG_AREALRESET
+        MENUITEM "Who's Hitting What",          ID_DEBUG_WHO
     END
 END
 

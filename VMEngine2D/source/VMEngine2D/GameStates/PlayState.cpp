@@ -180,4 +180,5 @@ void PlayState::EndState()
 	GameState::EndState();
 
 	ScoreText = nullptr;
+	LivesText = nullptr;
 }

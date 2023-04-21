@@ -21,4 +21,6 @@ public:
 
 public: 
 	EnemyAnims EnemyType;
+
+	EnemyAnims EnemyDestroy;
 };

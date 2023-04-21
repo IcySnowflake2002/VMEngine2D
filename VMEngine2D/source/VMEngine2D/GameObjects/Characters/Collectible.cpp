@@ -8,7 +8,7 @@ Collectible::Collectible(Vector2 StartPosition, SDL_Renderer* Renderer)
 {
 	Scale = 1.0f;
 	MovementDir = Vector2(0.0f, 1.0f);
-	Rotation = 180.0;
+	Rotation = 0.0;
 	CharPhysics->MaxVelocity = 300.0f;
 	Tag = "Shield";
 
@@ -20,7 +20,7 @@ Collectible::Collectible(Vector2 StartPosition, SDL_Renderer* Renderer)
 
 	//Add the collectible to the animstate
 	AddAnimation(Renderer, 
-		"Content/Pickups/pui-rocket.png", 
+		"Content/Pickups/pui_shd.png", 
 		AnimData);
 	
 }

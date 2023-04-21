@@ -25,6 +25,10 @@ public:
 
 	virtual void Draw(SDL_Renderer* Renderer) override;
 
+	void ActivateShield();
+
+	void SetMaxLives();
+
 protected:
 	// the direction of the player based on input
 	Vector2 InputDir;

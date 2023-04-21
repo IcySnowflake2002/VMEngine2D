@@ -254,3 +254,17 @@ void PlayerChar::Draw(SDL_Renderer* Renderer)
 	// Make sure the character method still runs
 	//Character::Draw(Renderer);
 }
+
+void PlayerChar::ActivateShield()
+{
+	//For DEBUG menu //
+	if (ShdIndex = PlayerAnims::EMPTY) {
+		ShdIndex = PlayerAnims::SHIELD;
+	}
+}
+
+void PlayerChar::SetMaxLives()
+{
+	// FOR DEBUG MENU //
+	Lives = 5;
+}

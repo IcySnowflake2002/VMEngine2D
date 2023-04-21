@@ -1,13 +1,6 @@
-﻿  Game.cpp
-C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Game.cpp(137,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Character.cpp
-  Enemy.cpp
-  GameOverState.cpp
-  PlayState.cpp
-C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(103,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(104,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(144,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(144,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Enemy.cpp
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameObjects\Characters\Enemy.cpp(76,14): warning C4553: '==': result of expression not used; did you intend '='?
+  PlayerChar.cpp
   Generating Code...
   VMEngine2D.vcxproj -> C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\x64\Debug\VMEngine2D.exe
   C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2.dll

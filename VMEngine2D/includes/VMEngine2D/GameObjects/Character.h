@@ -34,6 +34,14 @@ public:
 	//Decrease the lives by the amount listed
 	void RemoveLives(int Amount);
 
+	// DEBUG //
+
+	//register the overlap as detected and change to green
+	bool bOverlapDetected;
+
+	//show collision if true
+	bool bDebugCollision;
+
 protected:
 	//Store all animations
 	AnimStateMachine* CharacterAnimations;
@@ -52,12 +60,6 @@ protected:
 
 	//store a reference to the collision component
 	Collision* CharCollision;
-
-	//register the overlap as detected and change to green
-	bool bOverlapDetected;
-
-	//show collision if true
-	bool bDebugCollision;
 
 	// lives for character objects
 	// when 0, game ends

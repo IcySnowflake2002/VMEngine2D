@@ -5,10 +5,12 @@
 #include "VMEngine2D/GameObject.h"
 #include "VMEngine2D/GameState.h"
 #include "VMEngine2D/WindowMenu.h"
-#include "VMEngine2D/GameObjects/Character.h"
+#include "VMEngine2D/GameObjects/Characters/PlayerChar.h"
 
 //Game States
+#include "VMEngine2D/GameStates/SplashState.h"
 #include "VMEngine2D/GameStates/PlayState.h"
+#include "VMEngine2D/GameStates/GameOverState.h"
 
 //SDL2
 #include "sdl2/SDL_ttf.h"
@@ -54,11 +56,50 @@ void Game::RestartGame()
 	GetGameStates()->SwitchState(NewState);
 }
 
-void Game::ActivateDebug()
+void Game::LifeDebug()
 {
-	//Char = new Character(SdlRenderer);
-
+	//Give player max lives
+	//DebugChar->SetMaxLives();
 }
+
+void Game::ShdDebug()
+{
+	//Give Player Shield Powerup
+	//DebugChar->ActivateShield();
+}
+
+void Game::ScoreDebug()
+{
+	//Give player 1000 points
+	GameScore += 1000;
+}
+
+void Game::NoGame()
+{
+	//Reset the game score
+	GameScore = 0;
+
+	//Create a new starting state
+	GameOverState* EndState = new GameOverState(SdlWindow, SdlRenderer);
+	GetGameStates()->SwitchState(EndState);
+}
+
+void Game::ResetMe()
+{
+	//Reset the game score
+	GameScore = 0;
+
+	//Send you back to SplashState
+	SplashState* ResetState = new SplashState(SdlWindow, SdlRenderer);
+	GetGameStates()->SwitchState(ResetState);
+}
+
+void Game::HitMe()
+{
+	//Activate Collision Boxes
+	//DebugChar->bDebugCollision = true;
+}
+
 
 Game::Game()
 {
@@ -72,7 +113,7 @@ Game::Game()
 
 	GameStates = nullptr;
 	GameScore = 0;
-
+	DebugChar = nullptr;
 }
 
 Game::~Game()
@@ -246,7 +287,7 @@ void Game::BeginPlay()
 	cout << "Load Game Assets..." << endl;
 
 	//create a game state for the starting state
-	PlayState* StartingState = new PlayState(SdlWindow, SdlRenderer);
+	SplashState* StartingState = new SplashState(SdlWindow, SdlRenderer);
 	//create a game state machine and add the starting state
 	GameStates = new GameStateMachine(StartingState);
 }

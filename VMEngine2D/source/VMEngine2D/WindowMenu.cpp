@@ -71,10 +71,41 @@ void WindowMenu::ActivatePopup(const char* Title, const char* Message)
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, Title, Message, Window);
 }
 
-void WindowMenu::ActivateDebug(SDL_Renderer* Renderer)
+void WindowMenu::LifeGive()
 {
-	//run the Activate Debug function built into the game logic
-	Game::GetGameInstance().ActivateDebug();
+	//Run the debug function built into the game's logic
+	Game::GetGameInstance().LifeDebug();
 }
+
+void WindowMenu::ShieldGive()
+{
+	//Run the debug function built into the game's logic
+	Game::GetGameInstance().ShdDebug();
+}
+
+void WindowMenu::ScoreGive()
+{
+	//Run the debug function built into the game's logic
+	Game::GetGameInstance().ScoreDebug();
+}
+
+void WindowMenu::GameOverGive()
+{
+	//Run the debug function built into the game's logic
+	Game::GetGameInstance().NoGame();
+}
+
+void WindowMenu::SplashGive()
+{
+	//Run the debug function built into the game's logic
+	Game::GetGameInstance().ResetMe();
+}
+
+void WindowMenu::ColGive()
+{
+	//Run the debug function built into the game's logic
+	Game::GetGameInstance().HitMe();
+}
+
 
 

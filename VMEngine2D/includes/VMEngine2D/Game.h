@@ -8,6 +8,7 @@ class Input;
 class Collision;
 class GameStateMachine;
 class WindowMenu;
+class PlayerChar;
 
 class Game {
 public:
@@ -47,8 +48,25 @@ public:
 	// this will restart the game as if it was closed and reopened
 	void RestartGame();
 
-	//this will enable collision boxes to be drawn
-	void ActivateDebug();
+	// DEBUG OPTIONS //
+	
+	// Give Player MaxLives
+	void LifeDebug();
+
+	// Give Player Shield
+	void ShdDebug();
+
+	//Give Player 1000 points
+	void ScoreDebug();
+	
+	//Sends Player to Game Over state
+	void NoGame();
+
+	//Sends Player to Splash State
+	void ResetMe();
+
+	//Show Collision Boxes around Characters
+	void HitMe();
 
 private: 
 	//Constructor
@@ -104,6 +122,7 @@ private:
 	// create a window menu
 	WindowMenu* TopMenu;
 
-	//create a character object
-	Character* Char;
+	//store the player character for cheats
+	PlayerChar* DebugChar;
+
 };

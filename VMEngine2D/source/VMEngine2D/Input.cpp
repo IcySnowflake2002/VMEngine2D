@@ -69,15 +69,32 @@ void Input::HandleWMEvents(SDL_Event* Event)
 		break;
 	case ID_GAME_CONTROLS:
 		Game::GetGameInstance().GetTopMenu()->ActivatePopup(
-			"Game Controls",	//title
+			"Game Controls",								//title
 			"Arrow Keys to Move \n Z to shoot");			//message
 		break;
 	case ID_HELP_ABOUTVMENGINE2D:
 		Game::GetGameInstance().GetTopMenu()->ActivatePopup(
-				"About VMEngine2D",	//title
+				"About VMEngine2D",																											//title
 				"VMWEngine2D is an SDL2-based C++ 2D game engine created by Dylan Miller in 2023 for Basic Game Engine Programming.");		//message
 		break;
-	case ID_GAME_ACTIVATEDEBUG:
+		// DEBUG MENU OPTIONS //
+	case ID_DEBUG_GIVEMELIVES:
+		Game::GetGameInstance().LifeDebug();
+		break;
+	case ID_DEBUG_GIVEMESHIELD:
+		Game::GetGameInstance().ShdDebug();
+		break;
+	case ID_DEBUG_GIVEME100PTS:
+		Game::GetGameInstance().ScoreDebug();
+		break;
+	case ID_DEBUG_NOGAMEFORYOU:
+		Game::GetGameInstance().NoGame();
+		break;
+	case ID_DEBUG_AREALRESET:
+		Game::GetGameInstance().ResetMe();
+		break;
+	case ID_DEBUG_WHO:
+		Game::GetGameInstance().HitMe();
 		break;
 	default :
 		break;
