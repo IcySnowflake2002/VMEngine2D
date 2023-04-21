@@ -1,11 +1,17 @@
-﻿  PlayState.cpp
-D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(104,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(131,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(171,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(171,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  VMEngine2D.vcxproj -> D:\Users\9092\Documents\GitHub\VMEngine2D\x64\Debug\VMEngine2D.exe
-  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2.dll
-  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_image.dll
-  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_mixer.dll
-  D:\Users\9092\Documents\GitHub\VMEngine2D\VMEngine2D\lib\SDL2_ttf.dll
+﻿  Game.cpp
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\Game.cpp(137,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Character.cpp
+  Enemy.cpp
+  GameOverState.cpp
+  PlayState.cpp
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(103,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(104,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(144,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(144,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  VMEngine2D.vcxproj -> C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\x64\Debug\VMEngine2D.exe
+  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2.dll
+  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_image.dll
+  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_mixer.dll
+  C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_ttf.dll
           4 file(s) copied.

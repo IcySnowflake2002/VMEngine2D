@@ -77,6 +77,8 @@ void Input::HandleWMEvents(SDL_Event* Event)
 				"About VMEngine2D",	//title
 				"VMWEngine2D is an SDL2-based C++ 2D game engine created by Dylan Miller in 2023 for Basic Game Engine Programming.");		//message
 		break;
+	case ID_GAME_ACTIVATEDEBUG:
+		break;
 	default :
 		break;
 	}

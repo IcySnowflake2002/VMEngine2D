@@ -131,8 +131,8 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 
 		//Setting up neccessary information
 		P->Position = Position;
-		P->Position.x += 64.0f;
-		P->Position.y += 64.0f;
+		P->Position.x += 20.0f;
+		P->Position.y += 20.0f;
 		P->Acceleration = 1000.0f;
 		P->Direction = Vector2(0.0f, -1.0f);
 		P->ProjIndex = ProjAnims::PlayerProj;

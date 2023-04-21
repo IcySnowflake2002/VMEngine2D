@@ -12,8 +12,6 @@ PlayState::PlayState(SDL_Window* Window, SDL_Renderer* Renderer)
 	ScoreText = nullptr;
 	SpawnTimer = 0.0;
 	SpawnTime = 0.5;
-	HardSpawnTime = 5.0;
-	RareSpawnTime = 180.0;
 
 	Player = nullptr;
 }
@@ -35,7 +33,7 @@ void PlayState::BeginState()
 
 	//Adjust the text settings
 	STTextInfo TestInfo;
-	TestInfo.TextStr = "Hello World!";
+	TestInfo.TextStr = "Score: ##";
 	TestInfo.Size = 40;
 	TestInfo.Position = Vector2(25.0f, 25.0f);
 
@@ -99,48 +97,23 @@ void PlayState::Update(float DeltaTime)
 		//get a random number between 0 and the window width
 		//rand() gets random number between 0 and number afteer %
 		int SpawnEnemyX = rand() % WinWidth;
+		int SpawnEnemyX2 = rand() % WinWidth;
 
 		// spawn an enemy based on a random screen x location
 		Enemy* NewEnemy = new Enemy(EnemyAnims::BASE, Vector2(SpawnEnemyX, -128.0f), StateRenderer);
+		Enemy* Enemy2 = new Enemy(EnemyAnims::BASE2, Vector2(SpawnEnemyX2, -128.0f), StateRenderer);
 
 		//add the enemy to the game object stack
 		ActivateGameObject(NewEnemy);
+		ActivateGameObject(Enemy2);
 
 		//Reset Timer to 0 and start again
 		SpawnTimer = 0.0;
 		SpawnTime *= 0.99;
 
-		// SPAWNING HARD ENEMY //
-
-		if (SpawnTimer < HardSpawnTime) {
-			//set up variables to recieve the app window width and height
-			int WinWidth, WinHeight = 0;
-
-			//Use SDL function to set the dimensions
-			SDL_GetWindowSize(StateWindow, &WinWidth, &WinHeight);
-
-			//Increase Window Width by 1
-			WinWidth += 1;
-			WinWidth -= 128;
-
-			//get a random number between 0 and the window width
-			//rand() gets random number between 0 and number after %
-			int SpawnEnemyX2 = rand() % WinWidth;
-
-			// spawn an enemy based on a random screen x location
-			Enemy* NewEnemy2 = new Enemy(EnemyAnims::BASE2, Vector2(SpawnEnemyX2, -128.0f), StateRenderer);
-
-			//add the enemy to the game object stack
-			ActivateGameObject(NewEnemy2);
-
-			//Reset Timer to and start again
-			SpawnTimer = 0.0;
-			HardSpawnTime *= 0.99f;
-
-			//won't let spawn timer spawn faster than 5 seconds
-			if (HardSpawnTime < 5.0f) {
-				HardSpawnTime = 5.0f;
-			}
+		//ensure they don't spawn faster than 3 seconds
+		if (SpawnTime < 1.0f) {
+			SpawnTime = 1.0f;
 		}
 
 	}

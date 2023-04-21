@@ -15,6 +15,7 @@ Projectile::Projectile()
 	Scale = 2.0f;
 	TargetTag = " ";
 	ProjIndex = EmptyProj;
+	ProjOffset = Vector2::Zero();
 
 	Animations = new AnimStateMachine();
 	

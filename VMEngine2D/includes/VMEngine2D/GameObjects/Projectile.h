@@ -39,6 +39,9 @@ public:
 	//Store the different projectiles
 	unsigned int ProjIndex;
 
+	//Where the projectile is fired from
+	Vector2 ProjOffset;
+
 protected:
 	//store the texture/animation for the projectile
 	AnimStateMachine* Animations;

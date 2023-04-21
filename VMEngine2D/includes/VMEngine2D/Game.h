@@ -47,6 +47,9 @@ public:
 	// this will restart the game as if it was closed and reopened
 	void RestartGame();
 
+	//this will enable collision boxes to be drawn
+	void ActivateDebug();
+
 private: 
 	//Constructor
 	Game();
@@ -100,4 +103,7 @@ private:
 
 	// create a window menu
 	WindowMenu* TopMenu;
+
+	//create a character object
+	Character* Char;
 };

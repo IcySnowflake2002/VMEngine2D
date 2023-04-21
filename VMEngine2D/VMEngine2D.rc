@@ -60,6 +60,7 @@ BEGIN
     POPUP "Game"
     BEGIN
         MENUITEM "Controls",                    ID_GAME_CONTROLS
+        MENUITEM "Activate Debug",              ID_GAME_ACTIVATEDEBUG
     END
     POPUP "Help"
     BEGIN

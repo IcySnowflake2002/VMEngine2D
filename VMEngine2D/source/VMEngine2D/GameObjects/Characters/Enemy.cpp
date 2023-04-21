@@ -42,6 +42,17 @@ Enemy::Enemy(EnemyAnims EnemyType, Vector2 StartPosition, SDL_Renderer* Renderer
 	AddAnimation(Renderer,
 		"Content/Enemy/Enginefx/NS_bmb_fx.png", 
 		AnimData);
+
+	//set the animdata for the base1 destruction
+	AnimData.FPS = 24;
+	AnimData.MaxFrames = 9;
+	AnimData.EndFrame = 8;
+
+	//Add the Destruction animation to AnimState - 4
+	AddAnimation(Renderer,
+		"Content/Enemy/Destruction/NS_bmb.png",
+		AnimData);
+
 }
 
 Enemy::~Enemy()
@@ -88,6 +99,7 @@ void Enemy::Update()
 			E->Position = Position;
 			E->Position.x += 64.0f;
 			E->Position.y += 64.0f;
+			E->Rotation = 180.0f;
 			E->Acceleration = 1000.0f;
 			E->Direction = Vector2(0.0f, 1.0f);
 			E->ProjIndex = ProjAnims::EnemyProj;

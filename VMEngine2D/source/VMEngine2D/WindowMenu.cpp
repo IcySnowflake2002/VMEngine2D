@@ -2,6 +2,7 @@
 #include "VMEngine2D/Game.h"
 #include "sdl2/SDL.h"
 #include "sdl2/SDL_syswm.h"
+#include "VMEngine2D/GameObjects/Character.h"
 #include "../resource.h" //double dots look outside of the folder structure
 #include <Windows.h>
 #include <iostream>
@@ -69,3 +70,11 @@ void WindowMenu::ActivatePopup(const char* Title, const char* Message)
 	//create a message box that will show on screen with the title and message
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, Title, Message, Window);
 }
+
+void WindowMenu::ActivateDebug(SDL_Renderer* Renderer)
+{
+	//run the Activate Debug function built into the game logic
+	Game::GetGameInstance().ActivateDebug();
+}
+
+

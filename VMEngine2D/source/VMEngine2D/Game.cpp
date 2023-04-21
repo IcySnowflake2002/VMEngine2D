@@ -5,6 +5,7 @@
 #include "VMEngine2D/GameObject.h"
 #include "VMEngine2D/GameState.h"
 #include "VMEngine2D/WindowMenu.h"
+#include "VMEngine2D/GameObjects/Character.h"
 
 //Game States
 #include "VMEngine2D/GameStates/PlayState.h"
@@ -51,6 +52,12 @@ void Game::RestartGame()
 	//Create a new starting state
 	PlayState* NewState = new PlayState(SdlWindow, SdlRenderer);
 	GetGameStates()->SwitchState(NewState);
+}
+
+void Game::ActivateDebug()
+{
+	//Char = new Character(SdlRenderer);
+
 }
 
 Game::Game()
