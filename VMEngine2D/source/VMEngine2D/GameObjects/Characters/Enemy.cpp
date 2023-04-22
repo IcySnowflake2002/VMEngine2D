@@ -73,8 +73,6 @@ void Enemy::Update()
 		if (EnemyType == EnemyAnims::BASE) {
 			//add to score
 			Game::GetGameInstance().GameScore += 100;
-			EnemyType == EnemyAnims::BASE_DESTRUCTION;
-			SDL_Delay(40);
 		}
 		else if (EnemyType == EnemyAnims::BASE2) {
 			//add to score

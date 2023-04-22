@@ -14,6 +14,7 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 	DmgIndex = PlayerAnims::BASE_FULL;
 	ShdIndex = PlayerAnims::EMPTY;
 	Scale = 2.0f;
+	Tag = "Player";
 
 	STAnimationData AnimData = STAnimationData();
 	AnimData.FPS = 0;

@@ -1,7 +1,9 @@
-﻿  Enemy.cpp
-C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameObjects\Characters\Enemy.cpp(76,14): warning C4553: '==': result of expression not used; did you intend '='?
-  PlayerChar.cpp
-  Generating Code...
+﻿  PlayState.cpp
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(105,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(106,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(145,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(181,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\source\VMEngine2D\GameStates\PlayState.cpp(181,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   VMEngine2D.vcxproj -> C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\x64\Debug\VMEngine2D.exe
   C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2.dll
   C:\Users\mille\source\repos\dylanmiller9092\VMEngine2D\VMEngine2D\lib\SDL2_image.dll

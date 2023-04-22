@@ -12,6 +12,8 @@ PlayState::PlayState(SDL_Window* Window, SDL_Renderer* Renderer)
 	ScoreText = nullptr;
 	SpawnTimer = 0.0;
 	SpawnTime = 0.5;
+	SpawnRare = 60.0;
+	RareTime = 1.0;
 
 	Player = nullptr;
 }
@@ -117,6 +119,41 @@ void PlayState::Update(float DeltaTime)
 		}
 
 	}
+
+	// SPAWN RARE ENEMY //
+
+	if (SpawnRare > RareTime) {
+		RareTime++;
+	}
+
+	if (RareTime > SpawnRare) {
+		//set up variables to recieve the app window width and height
+		int WinWidth, WinHeight = 0;
+
+		//Use SDL function to set the dimensions
+		SDL_GetWindowSize(StateWindow, &WinWidth, &WinHeight);
+
+		//Increase Window Width by 1
+		WinWidth += 1;
+		WinWidth -= 128;
+
+		//get a random number between 0 and the window width
+		//rand() gets random number between 0 and number afteer %
+		int SpawnRareX = rand() % WinWidth;
+
+		//spawn an enemy based on a random X screen location
+		Enemy* Enemy3 = new Enemy(EnemyAnims::BASE3, Vector2(SpawnRareX, -128.0f), StateRenderer);
+
+		//add the enemy to the game object stack
+		ActivateGameObject(Enemy3);
+
+		//Reset Timer to 0 and start again
+		SpawnRare = 60.0;
+		RareTime = 1.0;
+
+
+	}
+
 
 	
 	//Set up Collectible Timer
