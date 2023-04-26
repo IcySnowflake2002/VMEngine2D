@@ -3,6 +3,7 @@
 #include "VMEngine2D/Text.h"
 #include "VMEngine2D/Game.h"
 #include "VMEngine2D/Input.h"
+#include "sdl2/SDL_mixer.h"
 
 SplashState::SplashState(SDL_Window* Window, SDL_Renderer* Renderer) :
 	GameState(Window, Renderer)
@@ -10,10 +11,19 @@ SplashState::SplashState(SDL_Window* Window, SDL_Renderer* Renderer) :
 	SplashText = nullptr;
 	AuthorText = nullptr;
 	StartText = nullptr;
+
+	//load a music file using mixer
+	SSBGM = Mix_LoadMUS("Content/Audio/title.wav");
 }
 
 void SplashState::BeginState()
 {
+
+	//Start Audio
+	if (Mix_PlayMusic(SSBGM, -1) == -1) {
+		std::cout << "Music failed to load" << std::endl;
+	}
+
 	// CREATE SPLASH TEXT //
 
 	SplashText = new Text(StateRenderer);
@@ -80,4 +90,10 @@ void SplashState::EndState()
 	SplashText = nullptr;
 	AuthorText = nullptr;
 	StartText = nullptr;
+
+	//Stop and unload music
+	if (SSBGM != nullptr) {
+		Mix_HaltMusic();
+		Mix_FreeMusic(SSBGM);
+	}
 }

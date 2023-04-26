@@ -81,7 +81,7 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 		"Content/Main Ship/Bases/base_lrgdmg.png",
 		AnimData);
 
-	//load the audio files
+	//load the audio files - shooting
 	sfx_Shoot[0] = Mix_LoadWAV("Content/Audio/plr_shoot.wav");
 
 	if (sfx_Shoot[0] == NULL) {
@@ -91,10 +91,19 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 	sfx_Shoot[1] = Mix_LoadWAV("Content/Audio/plr_shoot2.wav");
 	if (sfx_Shoot[1] == NULL) {
 		std::cout << "Couldn't load shoot 2" << std::endl;
-	}
+	} 
 
 	Mix_VolumeChunk(sfx_Shoot[0], 75);
 	Mix_VolumeChunk(sfx_Shoot[1], 75);
+
+	//load the audio files - collecting & hurt sfx
+	sfx_Collect[0] = Mix_LoadWAV("Content/Audio/collect.wav");
+	
+	if (sfx_Collect[0] == NULL) {
+		std::cout << "Couldn't load collect sfx" << std::endl;
+	}
+
+	Mix_VolumeChunk(sfx_Collect[0], 75);
 }
 
 PlayerChar::~PlayerChar()
@@ -106,6 +115,10 @@ PlayerChar::~PlayerChar()
 
 	if (sfx_Shoot[1] != nullptr) {
 		Mix_FreeChunk(sfx_Shoot[1]);
+	}
+
+	if (sfx_Collect[0] != nullptr) {
+		Mix_FreeChunk(sfx_Collect[0]);
 	}
 }
 
@@ -245,6 +258,9 @@ void PlayerChar::Update()
 		//getting all overlapped collectibles and destroying them
 		for (Collision* Collectible : CharCollision->GetOverlappedByTag("Shield")) {
 			if (!Collectible->GetOwner()->ShouldDestroy()) {
+				if (Mix_PlayChannel(-1, sfx_Collect[0], 0) == -1) {
+					std::cout << "Collect SFX failed to play." << std::endl;
+				}
 				dynamic_cast<Character*>(Collectible->GetOwner())->RemoveLives(1);
 				//Add Shield to Player so long as it is not max lives
 				if (Lives != MaxLives) {

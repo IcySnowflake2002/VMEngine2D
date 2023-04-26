@@ -72,7 +72,6 @@ BEGIN
         MENUITEM "Pity Points",                 ID_DEBUG_GIVEME100PTS
         MENUITEM "No Game For You",             ID_DEBUG_NOGAMEFORYOU
         MENUITEM "A Real Reset",                ID_DEBUG_AREALRESET
-        MENUITEM "Who's Hitting What",          ID_DEBUG_WHO
     END
 END
 

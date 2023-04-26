@@ -2,6 +2,7 @@
 #include "VMEngine2D/GameObjects/Components/Physics.h"
 #include "VMEngine2D/AnimStateMachine.h"
 #include "VMEngine2D/Game.h"
+#include "sdl2/SDL_mixer.h"
 
 Collectible::Collectible(Vector2 StartPosition, SDL_Renderer* Renderer)
 	: Character(StartPosition)
@@ -22,7 +23,6 @@ Collectible::Collectible(Vector2 StartPosition, SDL_Renderer* Renderer)
 	AddAnimation(Renderer, 
 		"Content/Pickups/pui_shd.png", 
 		AnimData);
-	
 }
 
 Collectible::~Collectible()

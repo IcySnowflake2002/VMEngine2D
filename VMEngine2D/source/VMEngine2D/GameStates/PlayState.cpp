@@ -15,6 +15,8 @@ PlayState::PlayState(SDL_Window* Window, SDL_Renderer* Renderer)
 	SpawnTime = 0.5;
 	SpawnTimerRare = 0.0;
 	SpawnTimeRare = 5.0;
+	CollectTimer = 0.0;
+	CollectTime = 10.0;
 
 	Player = nullptr;
 
@@ -129,9 +131,9 @@ void PlayState::Update(float DeltaTime)
 		SpawnTimer = 0.0;
 		SpawnTime *= 0.99;
 
-		//ensure they don't spawn faster than 3 seconds
-		if (SpawnTime < 1.0f) {
-			SpawnTime = 1.0f;
+		//ensure they don't spawn faster than a second
+		if (SpawnTime < 0.9f) {
+			SpawnTime = 0.9f;
 		}
 
 	}
@@ -198,12 +200,6 @@ void PlayState::Update(float DeltaTime)
 
 		//Reset Timer to 0 and start again
 		CollectTimer = 0.0;
-		CollectTime = 120.0;
-
-		//won't let spawn timer spawn faster than 3 seconds
-		if (CollectTime < 2.0f) {
-			CollectTime = 120.0f;
-		}
 
 	}
 

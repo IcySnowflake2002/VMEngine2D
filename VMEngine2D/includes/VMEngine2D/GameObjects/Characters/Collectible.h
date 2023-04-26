@@ -13,5 +13,4 @@ public:
 	virtual void Update() override;
 
 	virtual void Draw(SDL_Renderer* Renderer) override;
-
 };

@@ -65,9 +65,6 @@ public:
 	//Sends Player to Splash State
 	void ResetMe();
 
-	//Show Collision Boxes around Characters
-	void HitMe();
-
 	// DEBUG
 	void SetDebug(PlayerChar* Char);
 

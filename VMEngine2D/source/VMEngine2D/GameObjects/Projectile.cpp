@@ -26,7 +26,7 @@ Projectile::Projectile()
 
 	Proj_Phy = new Physics(this);
 	Proj_Phy->MaxVelocity = 1000.0f;
-	Proj_Phy->Drag = 1.0f;
+	Proj_Phy->Drag = 0.5f;
 
 	STAnimationData AnimData;
 	AnimData.FPS = 24;

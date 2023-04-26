@@ -75,8 +75,10 @@ void Game::ShdDebug()
 
 void Game::ScoreDebug()
 {
-	//Give player 1000 points
-	GameScore += 1000;
+	if (DebugChar != nullptr) {
+		//Give player 1000 points
+		GameScore += 1000;
+	}
 }
 
 void Game::NoGame()
@@ -97,12 +99,6 @@ void Game::ResetMe()
 	//Send you back to SplashState
 	SplashState* ResetState = new SplashState(SdlWindow, SdlRenderer);
 	GetGameStates()->SwitchState(ResetState);
-}
-
-void Game::HitMe()
-{
-	//Activate Collision Boxes
-	//DebugChar->bDebugCollision = true;
 }
 
 void Game::SetDebug(PlayerChar* Char)

@@ -11,14 +11,30 @@ GameOverState::GameOverState(SDL_Window* Window, SDL_Renderer* Renderer)
 	ScoreText = nullptr;
 	RestartText = nullptr;
 	GOText = nullptr;
+
+	//load a music file using mixer
+	EGM = Mix_LoadMUS("Content/Audio/endgame.wav");
 }
 
 void GameOverState::BeginState()
 {
 	GameState::BeginState();
 
-	//load a music file using mixer
-	EGM = Mix_LoadMUS("Content/Audio/bg.wav");
+	//Start Audio
+	if (Mix_PlayMusic(EGM, -1) == -1) {
+		std::cout << "Music failed to load" << std::endl;
+	}
+
+	/// CREATE GAME OVER TEXT ///
+	GOText = new Text(StateRenderer);
+	STTextInfo GOInfo;
+	GOInfo.TextStr = "GAME OVER";
+	GOInfo.Size = 60;
+	GOInfo.Position = Vector2(350.0f, 25.0f);
+
+	GOText->InitText("Content/images/Fonts/Oswald-Medium.ttf", GOInfo);
+
+	ActivateTextObject(GOText);
 
 	/// CREATE SCORE TEXT ///
 
@@ -29,7 +45,7 @@ void GameOverState::BeginState()
 	STTextInfo TestInfo;
 	TestInfo.TextStr = "Final Score: " + to_string(Game::GetGameInstance().GameScore);
 	TestInfo.Size = 45;
-	TestInfo.Position = Vector2(25.0f, 25.0f);
+	TestInfo.Position = Vector2(75.0f, 170.0f);
 
 	//initialise the text with a font and settings
 	ScoreText->InitText("Content/images/Fonts/Oswald-Medium.ttf", TestInfo);
@@ -41,7 +57,7 @@ void GameOverState::BeginState()
 
 	RestartText = new Text(StateRenderer);
 	TestInfo.Size = 24;
-	TestInfo.Position = Vector2(25.0f, 150.0f);
+	TestInfo.Position = Vector2(75.0f, 250.0f);
 	TestInfo.TextStr = "Press Space to Restart the Game";
 
 	//initialise the text with a font and settings

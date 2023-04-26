@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VMEngine2D/GameState.h"
+#include "sdl2/SDL_mixer.h"
 
 class SplashState :
 	public GameState {
@@ -26,4 +27,7 @@ protected:
 
 	//Display the START button text
 	Text* StartText;
+
+	//store the audio
+	Mix_Music* SSBGM;
 };

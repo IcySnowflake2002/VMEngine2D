@@ -4,6 +4,7 @@
 #include "VMEngine2D/AnimStateMachine.h"
 #include "VMEngine2D/Game.h"
 #include "VMEngine2D/GameState.h"
+#include "sdl2/SDL_mixer.h"
 
 
 Enemy::Enemy(EnemyAnims EnemyType, Vector2 StartPosition, SDL_Renderer* Renderer)
@@ -17,7 +18,7 @@ Enemy::Enemy(EnemyAnims EnemyType, Vector2 StartPosition, SDL_Renderer* Renderer
 	this->EnemyType = EnemyType;
 	this->EnemyDestroy = EnemyDestroy;
 	bIsDestroyed = false;
-	DestroyTimer = 2.0f;
+	DestroyTimer = 0.3f;
 
 	STAnimationData AnimData = STAnimationData();
 	AnimData.FPS = 0;
@@ -57,10 +58,37 @@ Enemy::Enemy(EnemyAnims EnemyType, Vector2 StartPosition, SDL_Renderer* Renderer
 		"Content/Enemy/Destruction/NS_bmb.png",
 		AnimData);
 
+	//Other Enemy Destructions w/ data
+	AnimData.FPS = 24;
+	AnimData.MaxFrames = 9;
+	AnimData.EndFrame = 8;
+
+	//Enemy 2 Destruction to Animstate - 5
+	AddAnimation(Renderer,
+		"Content/Enemy/Destruction/NS_fight.png",
+		AnimData);
+
+	//Enemy 3 Destruction to Animstate - 6
+	AddAnimation(Renderer,
+		"Content/Enemy/Destruction/NS_sct.png",
+		AnimData);
+
+	//Load destruction sound
+	sfx_Destroy[0] = Mix_LoadWAV("Content/Audio/enm_defeat.wav");
+
+	if (sfx_Destroy[0] == NULL) {
+		std::cout << "Couldn't load shoot 1" << std::endl;
+	}
+
+	Mix_VolumeChunk(sfx_Destroy[0], 75);
 }
 
 Enemy::~Enemy()
 {
+	//unload audio
+	if (sfx_Destroy[0] != nullptr) {
+		Mix_FreeChunk(sfx_Destroy[0]);
+	}
 }
 
 void Enemy::Update()
@@ -89,8 +117,12 @@ void Enemy::Update()
 				Game::GetGameInstance().GameScore += 500;
 			}
 			bIsDestroyed = true;
+			//Play audio
+			if (Mix_PlayChannel(-1, sfx_Destroy[0], 0) == -1) {
+				std::cout << "Destruction SFX failed to play." << std::endl;
+			}
 		}
-		//destroy self if 0
+		//If lives are 0, switch to destroyed state
 		DestroyTimer -= Game::GetGameInstance().GetFDeltaTime();
 	
 		if (DestroyTimer <= 0) {
@@ -136,7 +168,16 @@ void Enemy::Draw(SDL_Renderer* Renderer)
 		CharacterAnimations->Draw(Renderer, EnemyAnims::BOOSTERS, Position, Rotation, Scale, bFlipped);
 	}
 	else {
-		CharacterAnimations->Draw(Renderer, EnemyAnims::BASE_DESTRUCTION, Position, Rotation, Scale, bFlipped);
+		//Check the enemy type and play the appropriate destruction animation
+		if (EnemyType == EnemyAnims::BASE) {
+			CharacterAnimations->Draw(Renderer, EnemyAnims::BASE_DESTRUCTION, Position, Rotation, Scale, bFlipped);
+		}
+		else if (EnemyType == EnemyAnims::BASE2) {
+			CharacterAnimations->Draw(Renderer, EnemyAnims::BASE2_DESTRUCTION, Position, Rotation, Scale, bFlipped);
+		}
+		else if (EnemyType == EnemyAnims::BASE3) {
+			CharacterAnimations->Draw(Renderer, EnemyAnims::BASE3_DESTRUCTION, Position, Rotation, Scale, bFlipped);
+		}
 	}
 
 }

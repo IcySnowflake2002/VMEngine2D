@@ -101,11 +101,6 @@ void WindowMenu::SplashGive()
 	Game::GetGameInstance().ResetMe();
 }
 
-void WindowMenu::ColGive()
-{
-	//Run the debug function built into the game's logic
-	Game::GetGameInstance().HitMe();
-}
 
 
 

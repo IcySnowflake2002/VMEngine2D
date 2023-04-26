@@ -25,7 +25,7 @@ protected:
 	//store the text for restart
 	Text* RestartText;
 
-	//store the test for heading
+	//store the text for heading
 	Text* GOText;
 
 	//store the audio

@@ -51,6 +51,9 @@ protected:
 	//store the shoot audio - max 2
 	Mix_Chunk* sfx_Shoot[2] = { nullptr };
 
+	//store the collect audio - max 1
+	Mix_Chunk* sfx_Collect[1] = { nullptr };
+
 	//the shoot sound effect to play from the array
 	unsigned int ShootSFXIndex; //unsigned prevents negative numbers
 };
