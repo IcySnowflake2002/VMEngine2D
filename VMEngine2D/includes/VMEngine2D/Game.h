@@ -68,6 +68,9 @@ public:
 	//Show Collision Boxes around Characters
 	void HitMe();
 
+	// DEBUG
+	void SetDebug(PlayerChar* Char);
+
 private: 
 	//Constructor
 	Game();

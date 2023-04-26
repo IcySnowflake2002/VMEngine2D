@@ -3,6 +3,7 @@
 #include "VMEngine2D/Text.h"
 #include "VMEngine2D/Game.h"
 #include "VMEngine2D/Input.h"
+#include "sdl2/SDL_mixer.h"
 
 GameOverState::GameOverState(SDL_Window* Window, SDL_Renderer* Renderer) 
 	: GameState(Window, Renderer)
@@ -15,6 +16,9 @@ GameOverState::GameOverState(SDL_Window* Window, SDL_Renderer* Renderer)
 void GameOverState::BeginState()
 {
 	GameState::BeginState();
+
+	//load a music file using mixer
+	EGM = Mix_LoadMUS("Content/Audio/bg.wav");
 
 	/// CREATE SCORE TEXT ///
 
@@ -76,4 +80,10 @@ void GameOverState::EndState()
 	ScoreText = nullptr;
 	RestartText = nullptr;
 	GOText = nullptr;
+
+	//Stop and unload music
+	if (EGM != nullptr) {
+		Mix_HaltMusic();
+		Mix_FreeMusic(EGM);
+	}
 }

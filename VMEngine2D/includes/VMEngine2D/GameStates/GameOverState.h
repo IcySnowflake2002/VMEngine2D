@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VMEngine2D/GameState.h"
+#include "sdl2/SDL_mixer.h"
 
 class GameOverState :
 	public GameState {
@@ -26,4 +27,7 @@ protected:
 
 	//store the test for heading
 	Text* GOText;
+
+	//store the audio
+	Mix_Music* EGM;
 };

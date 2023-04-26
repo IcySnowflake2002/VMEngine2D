@@ -1,6 +1,9 @@
 #pragma once
 #include "VMEngine2D/GameObjects/Character.h"
 
+//forward declare
+struct Mix_Chunk;
+
 enum PlayerAnims : unsigned int {
 	BASE_FULL = 0,
 	ENG_SC = 1,
@@ -17,6 +20,7 @@ class PlayerChar :
 	public Character {
 public:
 	PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer);
+	~PlayerChar();
 
 	//Override these methods to create a more specialized design for the Player Character
 	virtual void ProcessInput(Input* PlayerInput) override;
@@ -43,4 +47,10 @@ protected:
 
 	//set the max amount of lives
 	unsigned int MaxLives = 5;
+
+	//store the shoot audio - max 2
+	Mix_Chunk* sfx_Shoot[2] = { nullptr };
+
+	//the shoot sound effect to play from the array
+	unsigned int ShootSFXIndex; //unsigned prevents negative numbers
 };

@@ -19,6 +19,10 @@ public:
 
 	virtual void Draw(SDL_Renderer* Renderer) override;
 
+	bool bIsDestroyed;
+
+	float DestroyTimer;
+
 public: 
 	EnemyAnims EnemyType;
 

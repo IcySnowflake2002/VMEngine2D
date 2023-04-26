@@ -14,6 +14,7 @@
 
 //SDL2
 #include "sdl2/SDL_ttf.h"
+#include "sdl2/SDL_mixer.h"
 
 using namespace std;
 
@@ -58,14 +59,18 @@ void Game::RestartGame()
 
 void Game::LifeDebug()
 {
-	//Give player max lives
-	//DebugChar->SetMaxLives();
+	if (DebugChar != nullptr) {
+		//Give player max lives
+		DebugChar->SetMaxLives();
+	}
 }
 
 void Game::ShdDebug()
 {
-	//Give Player Shield Powerup
-	//DebugChar->ActivateShield();
+	if (DebugChar != nullptr) {
+		//Give Player Shield Powerup
+		DebugChar->ActivateShield();
+	}
 }
 
 void Game::ScoreDebug()
@@ -98,6 +103,11 @@ void Game::HitMe()
 {
 	//Activate Collision Boxes
 	//DebugChar->bDebugCollision = true;
+}
+
+void Game::SetDebug(PlayerChar* Char)
+{
+	DebugChar = Char;
 }
 
 
@@ -168,6 +178,14 @@ void Game::Start(const char* WTitle, bool bFullScreen, int WWidth, int WHeight)
 	//intialise TTF and if it equals -1 then it failed; 0 means it succeeded
 	if (TTF_Init() < 0) {
 		std::cout << "SDL TTF failed to intialise: " << TTF_GetError() << endl;
+
+		CloseGame();
+		return;
+	}
+
+	//Intialise Audio systems
+	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
+		std::cout << "SDL_Mixer failed to intialise: " << SDL_GetError() << endl;
 
 		CloseGame();
 		return;
@@ -278,6 +296,9 @@ void Game::CloseGame()
 		//destroy the sdlrenderer
 		SDL_DestroyRenderer(SdlRenderer);
 	}
+
+	// delete the audio system from memory
+	Mix_CloseAudio();
 
 	SDL_Quit();
 }

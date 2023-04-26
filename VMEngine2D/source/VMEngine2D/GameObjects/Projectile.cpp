@@ -8,7 +8,7 @@
 
 Projectile::Projectile()
 {
-	DeathTimer = 10.0f;
+	DeathTimer = 2.0f;
 	Acceleration = 1000.0f;
 	Direction = Vector2::Zero();
 	Rotation = 0.0;
@@ -16,7 +16,6 @@ Projectile::Projectile()
 	TargetTag = " ";
 	ProjIndex = EmptyProj;
 	ProjOffset = Vector2::Zero();
-	DeltaTime = 0.0;
 
 	Animations = new AnimStateMachine();
 	
@@ -61,7 +60,7 @@ void Projectile::Update()
 {
 	GameObject::Update();
 
-	DeathTimer += DeltaTime;
+	DeathTimer -= Game::GetGameInstance().GetFDeltaTime();
 
 	//move the projectile constant in a direction
 	Proj_Phy->AddForce(Direction, Acceleration);
@@ -77,14 +76,9 @@ void Projectile::Update()
 			}
 		}
 	}
-
-	//Delete projectile after a certain time
-	while (!DeltaTime < DeathTimer) {
-		if (DeltaTime >= DeathTimer) {
-			this->DestroyGameObject();
-			DeathTimer = 0.0;
-		}
-		return;
+	
+	if (DeathTimer <= 0.0f) {
+		this->DestroyGameObject();
 	}
 }
 

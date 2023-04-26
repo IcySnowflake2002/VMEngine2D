@@ -51,9 +51,6 @@ protected:
 	
 	//driver of the position of the projectile
 	Physics* Proj_Phy;
-
-	//store the time
-	double DeltaTime;
 	
 
 };

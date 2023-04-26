@@ -1,5 +1,6 @@
 #pragma once
 #include "VMEngine2D/GameState.h"
+#include "sdl2/SDL_mixer.h"
 
 class Text;
 class PlayerChar;
@@ -30,13 +31,13 @@ protected:
 	double SpawnTimer;
 	
 	//Rare spawn timer
-	double SpawnRare;
+	double SpawnTimerRare;
 
 	//time to spawn basic enemies
 	double SpawnTime;
 
 	//Time to spawn rare enemies
-	double RareTime;
+	double SpawnTimeRare;
 
 	//collectible spawn timer
 	double CollectTimer;
@@ -46,4 +47,7 @@ protected:
 
 	//Store the player character
 	PlayerChar* Player;
+
+	//store the audio
+	Mix_Music* BGM;
 };

@@ -1,11 +1,13 @@
 #include "VMEngine2D/GameObjects/Characters/PlayerChar.h"
 #include "VMEngine2D/Input.h"
+#include "VMEngine2D/GameObjects/Characters/Enemy.h"
 #include "VMEngine2D/GameObjects/Components/Physics.h"
 #include "VMEngine2D/GameObjects/Components/Collision.h"
 #include "VMEngine2D/AnimStateMachine.h"
 #include "VMEngine2D/Game.h"
 #include "VMEngine2D/GameObjects/Projectile.h"
 #include "VMEngine2D/GameState.h"
+#include "sdl2/SDL_mixer.h"
 
 PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 	: Character(StartPosition)
@@ -14,6 +16,7 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 	DmgIndex = PlayerAnims::BASE_FULL;
 	ShdIndex = PlayerAnims::EMPTY;
 	Scale = 2.0f;
+	ShootSFXIndex = 0;
 	Tag = "Player";
 
 	STAnimationData AnimData = STAnimationData();
@@ -46,7 +49,7 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 	AddAnimation(Renderer,
 		"Content/Main Ship/Enginefx/sc_power.png",
 		AnimData);
-	
+
 	//Update AnimData to handle the Shield animation
 	AnimData.FPS = 24;
 	AnimData.MaxFrames = 10;
@@ -78,6 +81,32 @@ PlayerChar::PlayerChar(Vector2 StartPosition, SDL_Renderer* Renderer)
 		"Content/Main Ship/Bases/base_lrgdmg.png",
 		AnimData);
 
+	//load the audio files
+	sfx_Shoot[0] = Mix_LoadWAV("Content/Audio/plr_shoot.wav");
+
+	if (sfx_Shoot[0] == NULL) {
+		std::cout << "Couldn't load shoot 1" << std::endl;
+	}
+
+	sfx_Shoot[1] = Mix_LoadWAV("Content/Audio/plr_shoot2.wav");
+	if (sfx_Shoot[1] == NULL) {
+		std::cout << "Couldn't load shoot 2" << std::endl;
+	}
+
+	Mix_VolumeChunk(sfx_Shoot[0], 75);
+	Mix_VolumeChunk(sfx_Shoot[1], 75);
+}
+
+PlayerChar::~PlayerChar()
+{
+	//unload audio
+	if (sfx_Shoot[0] != nullptr) {
+		Mix_FreeChunk(sfx_Shoot[0]);
+	}
+
+	if (sfx_Shoot[1] != nullptr) {
+		Mix_FreeChunk(sfx_Shoot[1]);
+	}
 }
 
 void PlayerChar::ProcessInput(Input* PlayerInput)
@@ -145,6 +174,22 @@ void PlayerChar::ProcessInput(Input* PlayerInput)
 
 		//Reset Firing Timer
 		FireTimer = 0.0f;
+
+		//plays a single sfx (Mix_Chunk*)
+		//@Param1 = channel, if this -1 then it will play in the next available channel
+		//@Param2 = the sfx (Mix_Chunk*)
+		//@Param3 = how many loops should the sfx play, 0 means none
+		if (Mix_PlayChannel(-1, sfx_Shoot[ShootSFXIndex], 0) == -1) {
+			std::cout << "Shoot SFX failed to play." << std::endl;
+		}
+
+		//increment the index by 1
+		ShootSFXIndex++;
+
+		//if the index goes to 2 or higher then set the index to 0
+		if (ShootSFXIndex > 1) {
+			ShootSFXIndex = 0;
+		}
 	}
 }
 
@@ -161,10 +206,11 @@ void PlayerChar::Update()
 		bOverlapDetected = true;
 
 		//getting all overlapped enemies and destroy them
-		for (Collision* Enemy : CharCollision->GetOverlappedByTag("Enemy")) {
+		for (Collision* EnemyCol : CharCollision->GetOverlappedByTag("Enemy")) {
 			//if enemy is not being destroyed, destroy them
-			if (!Enemy->GetOwner()->ShouldDestroy()) {
-				dynamic_cast<Character*>(Enemy->GetOwner())->RemoveLives(1);
+			Enemy* EnemyRef = dynamic_cast<Enemy*>(EnemyCol->GetOwner());
+			if (!EnemyCol->GetOwner()->ShouldDestroy() && EnemyRef != nullptr && EnemyRef->bIsDestroyed == false) {
+				dynamic_cast<Character*>(EnemyCol->GetOwner())->RemoveLives(1);
 				//Remove life from player
 				RemoveLives(1);
 				//Check if player has shield and remove it

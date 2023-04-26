@@ -5,6 +5,7 @@
 #include "VMEngine2D/Game.h"
 #include "VMEngine2D/GameState.h"
 
+
 Enemy::Enemy(EnemyAnims EnemyType, Vector2 StartPosition, SDL_Renderer* Renderer)
 	: Character(StartPosition)
 {
@@ -15,6 +16,8 @@ Enemy::Enemy(EnemyAnims EnemyType, Vector2 StartPosition, SDL_Renderer* Renderer
 	Tag = "Enemy";
 	this->EnemyType = EnemyType;
 	this->EnemyDestroy = EnemyDestroy;
+	bIsDestroyed = false;
+	DestroyTimer = 2.0f;
 
 	STAnimationData AnimData = STAnimationData();
 	AnimData.FPS = 0;
@@ -46,8 +49,8 @@ Enemy::Enemy(EnemyAnims EnemyType, Vector2 StartPosition, SDL_Renderer* Renderer
 
 	//set the animdata for the base1 destruction
 	AnimData.FPS = 24;
-	AnimData.MaxFrames = 9;
-	AnimData.EndFrame = 8;
+	AnimData.MaxFrames = 10;
+	AnimData.EndFrame = 9;
 
 	//Add the Destruction animation to AnimState - 4
 	AddAnimation(Renderer,
@@ -64,30 +67,39 @@ void Enemy::Update()
 {
 	//Run the parent class update first
 	Character::Update();
-
-	CharPhysics->AddForce(MovementDir, 300.0f);
-
+	
+	if (bIsDestroyed == false) {
+		CharPhysics->AddForce(MovementDir, 300.0f);
+	}
+	
 	//check if lives are 0
 	if (GetLives() == 0) {
-		//Check what enemy it is
-		if (EnemyType == EnemyAnims::BASE) {
-			//add to score
-			Game::GetGameInstance().GameScore += 100;
-		}
-		else if (EnemyType == EnemyAnims::BASE2) {
-			//add to score
-			Game::GetGameInstance().GameScore += 200;
-		}
-		else if (EnemyType == EnemyAnims::BASE3) {
-			//add to score
-			Game::GetGameInstance().GameScore += 500;
+		if (bIsDestroyed != true) {
+			//Check what enemy it is
+			if (EnemyType == EnemyAnims::BASE) {
+				//add to score
+				Game::GetGameInstance().GameScore += 100;
+			}
+			else if (EnemyType == EnemyAnims::BASE2) {
+				//add to score
+				Game::GetGameInstance().GameScore += 200;
+			}
+			else if (EnemyType == EnemyAnims::BASE3) {
+				//add to score
+				Game::GetGameInstance().GameScore += 500;
+			}
+			bIsDestroyed = true;
 		}
 		//destroy self if 0
-		this->DestroyGameObject();
+		DestroyTimer -= Game::GetGameInstance().GetFDeltaTime();
+	
+		if (DestroyTimer <= 0) {
+			this->DestroyGameObject();
+		}
 	}
 
-	//Fire a projectile
-	if (EnemyType == EnemyAnims::BASE2) {
+	//Fire a projectile if not destroyed already
+	if (EnemyType == EnemyAnims::BASE2 && bIsDestroyed == false) {
 		//how long the enemy has to wait in-between shots
 		static float FireTimer = 3.0f;
 		FireTimer += Game::GetGameInstance().GetFDeltaTime();
@@ -117,10 +129,14 @@ void Enemy::Update()
 void Enemy::Draw(SDL_Renderer* Renderer)
 {
 	//draw the enemy
-	CharacterAnimations->Draw(Renderer, EnemyType, Position, Rotation, Scale, bFlipped);
+	if (bIsDestroyed != true) {
+		CharacterAnimations->Draw(Renderer, EnemyType, Position, Rotation, Scale, bFlipped);
 
-	//draw the boosters
-	CharacterAnimations->Draw(Renderer, EnemyAnims::BOOSTERS, Position, Rotation, Scale, bFlipped);
-
+		//draw the boosters
+		CharacterAnimations->Draw(Renderer, EnemyAnims::BOOSTERS, Position, Rotation, Scale, bFlipped);
+	}
+	else {
+		CharacterAnimations->Draw(Renderer, EnemyAnims::BASE_DESTRUCTION, Position, Rotation, Scale, bFlipped);
+	}
 
 }

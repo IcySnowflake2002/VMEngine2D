@@ -5,6 +5,7 @@
 #include "VMEngine2D/Game.h"
 #include "VMEngine2D/GameStates/GameOverState.h"
 #include "VMEngine2D/GameObjects/Characters/Collectible.h"
+#include "sdl2/SDL_mixer.h"
 
 PlayState::PlayState(SDL_Window* Window, SDL_Renderer* Renderer)
 	: GameState(Window, Renderer)
@@ -12,10 +13,13 @@ PlayState::PlayState(SDL_Window* Window, SDL_Renderer* Renderer)
 	ScoreText = nullptr;
 	SpawnTimer = 0.0;
 	SpawnTime = 0.5;
-	SpawnRare = 60.0;
-	RareTime = 1.0;
+	SpawnTimerRare = 0.0;
+	SpawnTimeRare = 5.0;
 
 	Player = nullptr;
+
+	//load a music file using mixer
+	BGM = Mix_LoadMUS("Content/Audio/bg.wav");
 }
 
 void PlayState::BeginState()
@@ -23,7 +27,19 @@ void PlayState::BeginState()
 	//this runs the parent function
 	GameState::BeginState();
 	Game::GetGameInstance().GameScore = 0;
+
+	//Start Audio
+	if (Mix_PlayMusic(BGM, -1) == -1) {
+		std::cout << "Music failed to load" << std::endl;
+	}
+
+	//Change volume of music
+	//Mix_VolumeMusic(25);
+
 	Player = new PlayerChar(Vector2(100.0f, 100.0f), StateRenderer);
+
+	// so debug will work
+	Game::GetGameInstance().SetDebug(Player);
 
 	//Add the character into the game object stack
 	SpawnGameObject(Player);
@@ -122,11 +138,10 @@ void PlayState::Update(float DeltaTime)
 
 	// SPAWN RARE ENEMY //
 
-	if (SpawnRare > RareTime) {
-		RareTime++;
-	}
+	SpawnTimerRare += DeltaTime;
 
-	if (RareTime > SpawnRare) {
+	if (SpawnTimerRare > SpawnTimeRare) {
+
 		//set up variables to recieve the app window width and height
 		int WinWidth, WinHeight = 0;
 
@@ -148,9 +163,7 @@ void PlayState::Update(float DeltaTime)
 		ActivateGameObject(Enemy3);
 
 		//Reset Timer to 0 and start again
-		SpawnRare = 60.0;
-		RareTime = 1.0;
-
+		SpawnTimerRare = 0.0;
 
 	}
 
@@ -218,4 +231,10 @@ void PlayState::EndState()
 
 	ScoreText = nullptr;
 	LivesText = nullptr;
+
+	//Stop and unload music
+	if (BGM != nullptr) {
+		Mix_HaltMusic();
+		Mix_FreeMusic(BGM);
+	}
 }
