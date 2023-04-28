@@ -75,7 +75,7 @@ void Input::HandleWMEvents(SDL_Event* Event)
 	case ID_HELP_ABOUTVMENGINE2D:
 		Game::GetGameInstance().GetTopMenu()->ActivatePopup(
 				"About VMEngine2D",																											
-				"VMWEngine2D is an SDL2-based C++ 2D game engine created by Dylan Miller in 2023 for Basic Game Engine Programming. \n Gameplay BGM: Kinect Party - Bug Patrol by Double Fine Composers \n All other music obtained via FreeSound.org and YouTube's Royalty-Free music library");	
+				"VMEngine2D is an SDL2-based C++ 2D game engine created by Dylan Miller in 2023 for Basic Game Engine Programming. \n Gameplay BGM: Kinect Party - Bug Patrol by Double Fine Composers \n All other music obtained via FreeSound.org and YouTube's Royalty-Free music library");	
 		break;
 		// DEBUG MENU OPTIONS //
 	case ID_DEBUG_GIVEMELIVES:
